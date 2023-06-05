@@ -1,14 +1,13 @@
 {
-    "name": "prtimes/shunsuke.tsuchiya",
-    "description": "kenshu-2023",
+    "name": "shunsuke.tsuchiya/php",
     "autoload": {
         "psr-4": {
-            "Prtimes\\ShunsukeTsuchiya\\": "src/"
+            "App\\": "views/"
         }
     },
     "authors": [
         {
-            "name": "shunsock",
+            "name": "ShunDeveloper",
             "email": "shunsuke.tsuchiya@prtimes.co.jp"
         }
     ],
