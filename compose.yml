@@ -3,13 +3,15 @@ version: "3"
 services:
   db:
     image: postgres:15
-    container_name: postgres
+    container_name: db
     ports:
       - 5432:5432
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/store:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=passw0rd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
   php:
     image: php:8.2-apache
     container_name: php
