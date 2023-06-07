@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace php\views\Route;
+namespace App;
 
-use App\Handler\HandlerInterface;
+use App\Core\Request;
+use App\Core\Response;
+use App\Handler\HandlerTopPage;
 
 class Route
 {
-    public static function getHandler(string $method, string $path): HandlerInterface
+    public static function getHandler(Request $req): Response
     {
-        if ($method === 'GET' && $path === '/posts') {
-            return new \App\Handler\GetPostListHandler();
-        }
-
-        return new \App\Handler\NotFoundHandler();
+        $tmp = new HandlerTopPage();
+        return $tmp->run($req);
     }
 }
 
