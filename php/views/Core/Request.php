@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Core;
+
 use Couchbase\PathNotFoundException;
 use http\Exception\InvalidArgumentException;
 
@@ -28,8 +30,8 @@ class Request
 
         try {
             $this->get_param = new GetParam($get_param);
-        } catch ( InvalidArgumentException $e) {
-            throw new InvalidArgumentException( $e, 'Request query param is invalid');
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException($e, 'Request query param is invalid');
         }
 
         if ($this->isPostDataValid($post_data) === false) {
@@ -81,14 +83,17 @@ class Request
     {
         return $this->request_method;
     }
+
     public function getPath(): string
     {
         return $this->path;
     }
+
     public function getGetParam(): GetParam
     {
         return $this->get_param;
     }
+
     public function getPostData(): array
     {
         return $this->post_data;

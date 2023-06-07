@@ -1,17 +1,19 @@
 <?php
+
 namespace App\Core;
+
 use http\Exception\InvalidArgumentException as InvalidArgumentExceptionAlias;
 
 class GetParam
 {
     private array $getParam;
-    private bool $isEmpty=false;
+    private bool $isEmpty = false;
 
     public function __construct(array $input_arr)
     {
         if (0 === count($input_arr)) {
-            $this->getParam=$input_arr;
-            $this->isEmpty=true;
+            $this->getParam = $input_arr;
+            $this->isEmpty = true;
             return;
         }
         if ($this->isArrayValuesTypeSame($input_arr) === false) {
@@ -22,6 +24,7 @@ class GetParam
         }
         $this->getParam = $input_arr;
     }
+
     private function isArrayValuesTypeSame(array $arr): bool
     {
         if (count($arr) === 0) {
@@ -34,6 +37,7 @@ class GetParam
         }
         return true;
     }
+
     private function isArrayKeyValid(array $arr): bool
     {
         if (count($arr) === 0) {
@@ -47,10 +51,12 @@ class GetParam
             return false;
         }
     }
+
     public function getRequest(): array
     {
         return $this->getParam;
     }
+
     public function isEmpty(): bool
     {
         return $this->isEmpty;
