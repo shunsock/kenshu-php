@@ -28,7 +28,7 @@ class GetParam
             throw new InvalidArgumentExceptionAlias('Array is empty');
         }
         foreach ($arr as $item) {
-            if ('string' != gettype($item)) {
+            if (!is_string($item)) {
                 return false;
             }
         }
