@@ -4,7 +4,7 @@ use http\Exception\InvalidArgumentException as InvalidArgumentExceptionAlias;
 
 class ListArray
 {
-    private function __construct(array $input_arr)
+    public function isListArrayValid(array $input_arr)
     {
         if ($this->isArrayValuesTypeSame($input_arr) === false) {
             throw new InvalidArgumentExceptionAlias('Array values type is not same');

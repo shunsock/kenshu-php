@@ -11,5 +11,8 @@
             "email": "shunsuke.tsuchiya@prtimes.co.jp"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-http": "*",
+      "ext-couchbase": "*"
+    }
 }
