@@ -12,7 +12,13 @@
         }
     ],
     "require": {
-      "ext-http": "*",
-      "ext-couchbase": "*"
+        "smorken/ext-http": "*",
+        "fig/http-message-util": "^1.1",
+      "ext-http": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
     }
 }

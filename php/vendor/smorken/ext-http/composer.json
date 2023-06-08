@@ -1,0 +1,27 @@
+{
+  "name": "smorken/ext-http",
+  "description": "HTTP extension for Laravel 5.1",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Scott Morken",
+      "email": "scott.morken@phoenixcollege.edu"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "smorken/sanitizer": "~5.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "dev-master",
+    "phpunit/phpunit": "~4.0",
+    "laravel/framework": "5.1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Smorken\\Ext\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

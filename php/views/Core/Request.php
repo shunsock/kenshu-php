@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-use Couchbase\PathNotFoundException;
 use http\Exception\InvalidArgumentException;
 
 class Request
