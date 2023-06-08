@@ -1,26 +1,37 @@
 <?php
-namespace php\views\Core;
+
+namespace App\Core;
+
 use http\Exception\InvalidArgumentException as InvalidArgumentExceptionAlias;
 
-class ListArray
+class GetParam
 {
-    private function __construct(array $input_arr)
+    private array $getParam;
+    private bool $isEmpty = false;
+
+    public function __construct(array $input_arr)
     {
+        if (0 === count($input_arr)) {
+            $this->getParam = $input_arr;
+            $this->isEmpty = true;
+            return;
+        }
         if ($this->isArrayValuesTypeSame($input_arr) === false) {
             throw new InvalidArgumentExceptionAlias('Array values type is not same');
         }
         if ($this->isArrayKeyValid($input_arr) === false) {
             throw new InvalidArgumentExceptionAlias('Array keys is not valid');
         }
+        $this->getParam = $input_arr;
     }
+
     private function isArrayValuesTypeSame(array $arr): bool
     {
         if (count($arr) === 0) {
             throw new InvalidArgumentExceptionAlias('Array is empty');
         }
-        $type = gettype($arr[0]);
         foreach ($arr as $item) {
-            if ($type != gettype($item)) {
+            if (!is_string($item)) {
                 return false;
             }
         }
@@ -39,5 +50,15 @@ class ListArray
         } else {
             return false;
         }
+    }
+
+    public function getRequest(): array
+    {
+        return $this->getParam;
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->isEmpty;
     }
 }

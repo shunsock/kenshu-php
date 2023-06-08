@@ -1,8 +1,11 @@
 <?php
 
-namespace App\views\Handler\HandleInterface;
+namespace App\Handler;
+
+use App\Core\Request;
+use App\Core\Response;
 
 interface HandlerInterface
 {
-    public function run(array $req): array;
+    public function run(Request $req): Response;
 }

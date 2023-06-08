@@ -1,31 +1,48 @@
 <?php
+
 namespace App\Core;
-use App\Core\DictArray;
+
+use http\Exception\InvalidArgumentException;
 
 class Request
 {
-    private string $method;
+    private string $request_method;
     private string $path;
-    private array $get;
-    private array $post;
+    private GetParam $get_param;
+    private array $post_data;
 
-    public function __construct()
+    public function __construct(
+        $request_method,
+        $path,
+        $get_param,
+        $post_data
+    )
     {
-        if ($this->isHttpRequest($_SERVER['REQUEST_METHOD']) === false) {
-            throw new InvalidArgumentException('Request method is not valid');
+        if ($this->isHttpRequest($request_method) === false) {
+            throw new InvalidArgumentException('Request method is invalid');
         }
-        if ($this->isDirectoryExist($_SERVER['REQUEST_URI']) === false) {
-            throw new InvalidArgumentException('Request path is not valid');
+        $this->request_method = $request_method;
+        if ($this->isDirectoryExist($path) === false) {
+            throw new InvalidArgumentException('Request path is invalid');
         }
-        if ($this->isQueryParamValid($_GET) === false) {
-            throw new InvalidArgumentException('Request query param is not valid');
+        $this->path = $path;
+
+        try {
+            $this->get_param = new GetParam($get_param);
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException($e, 'Request query param is invalid');
         }
-        $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->path = $_SERVER['REQUEST_URI'];
-        $this->get = $_GET;
-        $this->post = $_POST;
+
+        if ($this->isPostDataValid($post_data) === false) {
+            throw new InvalidArgumentException('Request data is invalid');
+        }
+        $this->post_data = $post_data;
     }
 
+    /**
+     * @param string $request_name
+     * @return bool
+     */
     private function isHttpRequest(string $request_name): bool
     {
         if (in_array($request_name, ['GET', 'POST', 'PUT', 'DELETE'], true)) {
@@ -35,6 +52,10 @@ class Request
         }
     }
 
+    /**
+     * @param string $path
+     * @return bool
+     */
     private function isDirectoryExist(string $path): bool
     {
         if (is_dir($path)) {
@@ -44,13 +65,36 @@ class Request
         }
     }
 
-    private function isQueryParamValid(array $arr): bool
+    private function isPostDataValid(array $arr): bool
     {
         if (count($arr) === 0) {
             return true;
-        } else {
-            $tmp = DictArray($arr);
+        }
+        foreach ($arr as $value) {
+            if (gettype($value) !== 'string') {
+                return false;
+            }
         }
         return true;
+    }
+
+    public function getRequestMethod(): string
+    {
+        return $this->request_method;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function getGetParam(): GetParam
+    {
+        return $this->get_param;
+    }
+
+    public function getPostData(): array
+    {
+        return $this->post_data;
     }
 }

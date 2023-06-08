@@ -11,5 +11,13 @@
             "email": "shunsuke.tsuchiya@prtimes.co.jp"
         }
     ],
-    "require": {}
+    "require": {
+        "smorken/ext-http": "*",
+        "fig/http-message-util": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
 }
