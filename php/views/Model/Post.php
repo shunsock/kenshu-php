@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Model;
-use InvalidArgumentException;
+
 use App\Core\NumberInt;
 class Post {
     private int $id;
@@ -13,14 +13,14 @@ class Post {
     private string $created_at;
     private string $updated_at;
 
-    private function __constructor(
-        $id,
-        $title,
-        $user_id,
-        $thumbnail,
-        $body,
-        $created_at,
-        $updated_at
+    public function __construct(
+        string $id,
+        string $title,
+        string $user_id,
+        string $thumbnail,
+        string $body,
+        string $created_at,
+        string $updated_at
     )
     {
         $id_checked = new NumberInt($id);
@@ -35,9 +35,11 @@ class Post {
 
         $this->body = $body;
 
-        $this->created_at = date('m/y/d/m/y H:i', $created_at);
+        $tmp = new NumberInt($created_at);
+        $this->created_at = date('Y-m-d H:i', $tmp->getValue());
 
-        $this->updated_at = date('m/y/d/m/y H:i', $updated_at);
+        $tmp = new NumberInt($updated_at);
+        $this->updated_at = date('Y-m-d H:i', $tmp->getValue());
     }
 
     /**
