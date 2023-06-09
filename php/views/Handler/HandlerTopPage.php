@@ -25,10 +25,11 @@ class HandlerTopPage implements HandlerInterface
     {
         $body = '<body>';
         foreach ($posts as $post) {
-            $body .= '<div>';
-            $body .= '<h2>' . $post->getTitle() . '</h2>';
-            $body .= '<p>' . $post->getCreatedAt() . '</p>';
-            $body .= '<p>' . $post->getBody() . '</p>';
+            $body .= '<div class="my-16">';
+            $body .= '<h2 class="text-2xl text-monokaiRed">' . $post->getTitle() . '</h2>';
+            $body .= '<p class="text-monokaiGreen">' . $post->getCreatedAt() . '</p>';
+            $body .= '<img class="my-4 object-contain rounded-xl" src='.$post->getThumbnail().' alt="image">';
+            $body .= '<p class="text-md text-monokaiWhite">' . $post->getBody() . '</p>';
             $body .= '</div>';
         }
         $body .= '</body>';
