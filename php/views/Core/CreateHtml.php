@@ -7,6 +7,19 @@ namespace App\Core;
 class CreateHtml
 {
     private string $html;
+    public function __construct(string $content)
+    {
+        $html = '<!DOCTYPE html>';
+        $html .= '<html>';
+        $html .= $this->getHead();
+        $html .= '<body class="bg-slate-800 text-white px-[30%] my-10">';
+        $html .= $this->getHeader();
+        $html .= $content;
+        $html .= $this->getFooter();
+        $html .= '</body>';
+        $html .= '</html>';
+        $this->html = $html;
+    }
     private function getHead(): string
     {
         $head = '<head>';
@@ -51,19 +64,6 @@ class CreateHtml
         $footer .= '<p class="text-monokaiComments">@copy right: Shunsock</p>';
         $footer .= '</footer>';
         return $footer;
-    }
-    public function __construct(string $content)
-    {
-        $html = '<!DOCTYPE html>';
-        $html .= '<html>';
-        $html .= $this->getHead();
-        $html .= '<body class="bg-slate-800 text-white px-[30%] my-10">';
-        $html .= $this->getHeader();
-        $html .= $content;
-        $html .= $this->getFooter();
-        $html .= '</body>';
-        $html .= '</html>';
-        $this->html = $html;
     }
     public function getHtml(): string
     {
