@@ -8,16 +8,18 @@ use InvalidArgumentException;
 class NumberInt
 {
     private int $value;
-    public function __construct(int | string $value)
+
+    public function __construct(int|string $value)
     {
         if (is_int($value)) {
-            $value = (string) $value;
+            $value = (string)$value;
         }
         if (!preg_match(pattern: '/^[-+]?[0-9]+$/', subject: $value)) {
             throw new InvalidArgumentException(message: 'Not Integer');
         }
         $this->value = ((int)$value);
     }
+
     public function getValue(): int
     {
         return $this->value;
