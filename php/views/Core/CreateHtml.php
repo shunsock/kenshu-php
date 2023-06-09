@@ -7,6 +7,7 @@ namespace App\Core;
 class CreateHtml
 {
     private string $html;
+
     public function __construct(string $content)
     {
         $html = '<!DOCTYPE html>';
@@ -20,6 +21,7 @@ class CreateHtml
         $html .= '</html>';
         $this->html = $html;
     }
+
     private function getHead(): string
     {
         $head = '<head>';
@@ -50,6 +52,7 @@ class CreateHtml
         $head .= '</head>';
         return $head;
     }
+
     private function getHeader(): string
     {
         $header = '<header>';
@@ -58,6 +61,7 @@ class CreateHtml
         $header .= '</header>';
         return $header;
     }
+
     private function getFooter(): string
     {
         $footer = '<footer>';
@@ -65,6 +69,7 @@ class CreateHtml
         $footer .= '</footer>';
         return $footer;
     }
+
     public function getHtml(): string
     {
         return $this->html;

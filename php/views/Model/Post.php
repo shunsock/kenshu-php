@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Core\NumberInt;
-class Post {
+
+class Post
+{
     private int $id;
     private string $title;
     private int $user_id;
@@ -65,18 +67,22 @@ class Post {
     {
         return $this->user_id;
     }
+
     public function getThumbnail(): string
     {
         return $this->thumbnail;
     }
+
     public function getBody(): string
     {
         return $this->body;
     }
+
     public function getCreatedAt(): string
     {
         return $this->created_at;
     }
+
     public function getUpdatedAt(): string
     {
         return $this->updated_at;
