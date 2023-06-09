@@ -15,6 +15,7 @@ class Post
     private string $created_at;
     private string $updated_at;
 
+    // TODO: PostgresのPDOの出力について調べる. 入力が想定される型を調べる
     public function __construct(
         string $id,
         string $title,
