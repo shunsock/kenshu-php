@@ -25,9 +25,9 @@ class HandlerTopPage implements HandlerInterface
     {
         $body = '<body>';
         foreach ($posts as $post) {
-            $body .= '<div class="my-16">';
-            $body .= '<h2 class="text-2xl text-monokaiRed">' . $post->getTitle() . '</h2>';
-            $body .= '<p class="text-monokaiGreen">' . $post->getCreatedAt() . '</p>';
+            $body .= '<div class="my-16 bg-slate-700 p-10 rounded-xl">';
+            $body .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
+            $body .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . $post->getCreatedAt() . '</p>';
             $body .= '<img class="my-4 object-contain rounded-xl" src='.$post->getThumbnail().' alt="image">';
             $body .= '<p class="text-md text-monokaiWhite">' . $post->getBody() . '</p>';
             $body .= '</div>';
