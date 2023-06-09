@@ -2,8 +2,6 @@
 
 namespace App\Core;
 
-use http\Exception\InvalidArgumentException as InvalidArgumentExceptionAlias;
-
 class GetParam
 {
     private array $getParam;
@@ -17,10 +15,10 @@ class GetParam
             return;
         }
         if ($this->isArrayValuesTypeSame($input_arr) === false) {
-            throw new InvalidArgumentExceptionAlias('Array values type is not same');
+            throw new \InvalidArgumentException(message:'Array values type is not same');
         }
         if ($this->isArrayKeyValid($input_arr) === false) {
-            throw new InvalidArgumentExceptionAlias('Array keys is not valid');
+            throw new \InvalidArgumentException(message:'Array keys is not valid');
         }
         $this->getParam = $input_arr;
     }
@@ -28,7 +26,7 @@ class GetParam
     private function isArrayValuesTypeSame(array $arr): bool
     {
         if (count($arr) === 0) {
-            throw new InvalidArgumentExceptionAlias('Array is empty');
+            throw new \InvalidArgumentException(message: 'Array is empty');
         }
         foreach ($arr as $item) {
             if (!is_string($item)) {
@@ -41,15 +39,14 @@ class GetParam
     private function isArrayKeyValid(array $arr): bool
     {
         if (count($arr) === 0) {
-            throw new InvalidArgumentExceptionAlias('Array is empty');
+            throw new \InvalidArgumentException(message: 'Array is empty');
         }
-        $keys = array_keys($arr);
-        $is_list = $keys === range(0, count($arr) - 1);
-        if ($is_list) {
-            return true;
-        } else {
-            return false;
+        foreach (array_keys($arr) as $key) {
+            if (!is_string($key)) {
+                return false;
+            }
         }
+        return true;
     }
 
     public function getRequest(): array
@@ -60,5 +57,4 @@ class GetParam
     public function isEmpty(): bool
     {
         return $this->isEmpty;
-    }
-}
+    }}
