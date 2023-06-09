@@ -7,13 +7,13 @@ use http\Exception\InvalidArgumentException;
 class Request
 {
     private string $request_method;
-    private string $path;
+    private string $uri;
     private GetParam $get_param;
     private array $post_data;
 
     public function __construct(
         $request_method,
-        $path,
+        $uri,
         $get_param,
         $post_data
     )
@@ -22,19 +22,19 @@ class Request
             throw new InvalidArgumentException('Request method is invalid');
         }
         $this->request_method = $request_method;
-        if ($this->isDirectoryExist($path) === false) {
+        if ($this->isUriValid($uri) === false) {
             throw new InvalidArgumentException('Request path is invalid');
         }
-        $this->path = $path;
+        $this->uri = $uri;
 
         try {
             $this->get_param = new GetParam($get_param);
-        } catch (InvalidArgumentException $e) {
-            throw new InvalidArgumentException($e, 'Request query param is invalid');
+        } catch (InvalidArgumentException) {
+            throw new InvalidArgumentException(message: 'Request query param is invalid');
         }
 
         if ($this->isPostDataValid($post_data) === false) {
-            throw new InvalidArgumentException('Request data is invalid');
+            throw new InvalidArgumentException(message: 'Request data is invalid');
         }
         $this->post_data = $post_data;
     }
@@ -53,12 +53,12 @@ class Request
     }
 
     /**
-     * @param string $path
+     * @param string $uri
      * @return bool
      */
-    private function isDirectoryExist(string $path): bool
+    private function isUriValid(string $uri): bool
     {
-        if (is_dir($path)) {
+        if (preg_match(pattern: '/^([\/]?([a-zA-Z]+)*(\?[a-zA-Z]+=[a-zA-Z0-9]+)?)$/', subject: $uri)) {
             return true;
         } else {
             return false;
@@ -83,9 +83,9 @@ class Request
         return $this->request_method;
     }
 
-    public function getPath(): string
+    public function getUri(): string
     {
-        return $this->path;
+        return $this->uri;
     }
 
     public function getGetParam(): GetParam

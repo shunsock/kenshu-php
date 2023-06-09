@@ -7,13 +7,18 @@ namespace App;
 use App\Core\Request;
 use App\Core\Response;
 use App\Handler\HandlerTopPage;
-
+use App\Handler\HandlerPostPage;
 class Route
 {
     public static function getHandler(Request $req): Response
     {
-        $tmp = new HandlerTopPage();
+        if ($req->getUri() === "/") {
+            $tmp = new HandlerTopPage();
+        } else if (preg_match('/\/(\?id=)[0-9]+/', $req->getUri())) {
+            $tmp = new HandlerPostPage();
+        } else {
+            throw new \InvalidArgumentException(message: 'Invalid URI');
+        }
         return $tmp->run($req);
     }
 }
-
