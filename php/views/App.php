@@ -19,7 +19,7 @@ class App
         if ($req->getPath() === "/") {
             $res = Route::getHandler($req);
         } else {
-            $res = new Response(status_code: "404", body: "Not Found");
+            $res = new Response(status_code: "404", body: "<html><body>Not Found</body></html>");
         }
         echo $res->getBody();
     }
