@@ -7,6 +7,8 @@ use App\Core;
 use ArrayObject;
 use InvalidArgumentException;
 
+// Note: PHPでは`Post[]`のような配列の宣言ができない
+// REFERENCE: https://www.php.net/manual/ja/class.arrayobject.php
 class PostCollection extends ArrayObject
 {
     public function __construct(array $items = [])
@@ -32,7 +34,7 @@ class PostCollection extends ArrayObject
     protected function validate($value): void
     {
         if (!$value instanceof Post) {
-            throw new InvalidArgumentException('Not an instance of Post');
+            throw new InvalidArgumentException(message: 'Not an instance of Post');
         }
     }
 }
