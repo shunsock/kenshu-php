@@ -9,8 +9,12 @@ use InvalidArgumentException;
 
 // Note: PHPでは`Post[]`のような配列の宣言ができない
 // REFERENCE: https://www.php.net/manual/ja/class.arrayobject.php
+
 class PostCollection extends ArrayObject
 {
+    /**
+     * @param Post[] $items
+     */
     public function __construct(array $items = [])
     {
         parent::__construct();
@@ -19,18 +23,31 @@ class PostCollection extends ArrayObject
         }
     }
 
+    /**
+     * @param Post $value
+     * @return void
+     */
     public function append($value): void
     {
         $this->validate($value);
         parent::append($value);
     }
 
+    /**
+     * @param $key
+     * @param Post $value
+     * @return void
+     */
     public function offsetSet($key, $value): void
     {
         $this->validate($value);
         parent::offsetSet($key, $value);
     }
 
+    /**
+     * @param Post $value
+     * @return void
+     */
     protected function validate($value): void
     {
         if (!$value instanceof Post) {
