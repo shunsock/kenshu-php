@@ -1,1 +1,0 @@
-cp db/init.sql db/setting/
