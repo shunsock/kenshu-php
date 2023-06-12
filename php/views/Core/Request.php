@@ -2,8 +2,6 @@
 
 namespace App\Core;
 
-use http\Exception\InvalidArgumentException;
-
 class Request
 {
     private string $request_method;
@@ -19,22 +17,22 @@ class Request
     )
     {
         if ($this->isHttpRequest($request_method) === false) {
-            throw new InvalidArgumentException('Request method is invalid');
+            throw new \InvalidArgumentException('Request method is invalid');
         }
         $this->request_method = $request_method;
         if ($this->isUriValid($uri) === false) {
-            throw new InvalidArgumentException('Request path is invalid');
+            throw new \InvalidArgumentException('Request path is invalid');
         }
         $this->uri = $uri;
 
         try {
             $this->get_param = new GetParam($get_param);
         } catch (InvalidArgumentException) {
-            throw new InvalidArgumentException(message: 'Request query param is invalid');
+            throw new \InvalidArgumentException(message: 'Request query param is invalid');
         }
 
         if ($this->isPostDataValid($post_data) === false) {
-            throw new InvalidArgumentException(message: 'Request data is invalid');
+            throw new \InvalidArgumentException(message: 'Request data is invalid');
         }
         $this->post_data = $post_data;
     }
