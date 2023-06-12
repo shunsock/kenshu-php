@@ -71,7 +71,7 @@ class Request
             return true;
         }
         foreach ($arr as $value) {
-            if (gettype($value) !== 'string') {
+            if (!is_string($value)) {
                 return false;
             }
         }
