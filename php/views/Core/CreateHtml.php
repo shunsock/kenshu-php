@@ -74,6 +74,7 @@ class CreateHtml
         $navbar .= '</nav>';
         return $navbar;
     }
+
     private function getFooter(): string
     {
         $footer = '<footer>';

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Core\CreateHtml;
 use App\Core\Request;
 use App\Core\Response;
 use App\Mock\PostMock;
-use App\Core\CreateHtml;
 use App\Model\PostCollection;
 
 class HandlerPostPage implements HandlerInterface
