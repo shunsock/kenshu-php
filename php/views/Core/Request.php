@@ -2,37 +2,38 @@
 
 namespace App\Core;
 
+use InvalidArgumentException;
+
 class Request
 {
     private string $request_method;
     private string $uri;
-    private GetParam $get_param;
+    private array $get_param;
     private array $post_data;
 
     public function __construct(
-        $request_method,
-        $uri,
-        $get_param,
-        $post_data
+        string $request_method,
+        string $uri,
+               $get_param,
+               $post_data
     )
     {
         if ($this->isHttpRequest($request_method) === false) {
-            throw new \InvalidArgumentException('Request method is invalid');
+            throw new InvalidArgumentException(message: 'Request method is invalid');
         }
         $this->request_method = $request_method;
         if ($this->isUriValid($uri) === false) {
-            throw new \InvalidArgumentException('Request path is invalid');
+            throw new InvalidArgumentException(message: 'Request path is invalid');
         }
         $this->uri = $uri;
 
-        try {
-            $this->get_param = new GetParam($get_param);
-        } catch (InvalidArgumentException) {
-            throw new \InvalidArgumentException(message: 'Request query param is invalid');
+        if (GetParamChecker::isGetParamValid($get_param) === false) {
+            throw new InvalidArgumentException(message: 'Request query param is invalid');
         }
+        $this->get_param = $get_param;
 
         if ($this->isPostDataValid($post_data) === false) {
-            throw new \InvalidArgumentException(message: 'Request data is invalid');
+            throw new InvalidArgumentException(message: 'Request data is invalid');
         }
         $this->post_data = $post_data;
     }
@@ -43,7 +44,7 @@ class Request
      */
     private function isHttpRequest(string $request_name): bool
     {
-        if (in_array($request_name, ['GET', 'POST', 'PUT', 'DELETE'], true)) {
+        if (in_array(needle: $request_name, haystack: ['GET', 'POST', 'PUT', 'DELETE'], strict: true)) {
             return true;
         } else {
             return false;
@@ -84,11 +85,6 @@ class Request
     public function getUri(): string
     {
         return $this->uri;
-    }
-
-    public function getGetParam(): GetParam
-    {
-        return $this->get_param;
     }
 
     public function getPostData(): array
