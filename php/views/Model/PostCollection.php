@@ -9,7 +9,6 @@ use InvalidArgumentException;
 
 // Note: PHPでは`Post[]`のような配列の宣言ができない
 // REFERENCE: https://www.php.net/manual/ja/class.arrayobject.php
-
 class PostCollection extends ArrayObject
 {
     /**
