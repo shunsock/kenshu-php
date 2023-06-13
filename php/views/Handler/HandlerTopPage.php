@@ -8,12 +8,13 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Core\CreateHtml;
 use App\Model\PostCollection;
+use App\Repository\RepositoryGetAllPost;
 
 class HandlerTopPage implements HandlerInterface
 {
     public function run(Request $req): Response
     {
-        $posts = $this->getPosts();
+        $posts = RepositoryGetAllPost::getAllPosts();
         $html = $this->render($posts);
         return new Response(status_code: '200', body: $html);
     }

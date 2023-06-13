@@ -9,19 +9,25 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Mock\PostMock;
 use App\Model\PostCollection;
+use App\Repository\RepositoryGetAllPost;
 
 class HandlerPostPage implements HandlerInterface
 {
     public function run(Request $req): Response
     {
-        $posts = $this->getPosts();
+        $posts = RepositoryGetAllPost::getAllPosts();
         $html = $this->render($posts);
         return new Response(status_code: '200', body: $html);
     }
 
-    private function getPosts(): PostCollection
+    private function getMockPosts(): PostCollection
     {
         return PostMock::getPostCollection();
+    }
+
+    private function getPosts(): PostCollection
+    {
+        return RepositoryGetAllPost::getAllPosts();
     }
 
     private function createBody(PostCollection $posts): string
