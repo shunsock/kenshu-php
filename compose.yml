@@ -10,8 +10,9 @@ services:
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/store:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: test01
+      POSTGRES_PASSWORD: test01
+      POSTGRES_DB: test01
   php:
     image: php:8.2-apache
     container_name: php
