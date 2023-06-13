@@ -39,10 +39,10 @@ class Post
         $this->body = $body;
 
         $tmp = new NumberInt($created_at);
-        $this->created_at = date('Y-m-d H:i', $tmp->getValue());
+        $this->created_at = date(format: 'Y-m-d H:i', timestamp: $tmp->getValue());
 
         $tmp = new NumberInt($updated_at);
-        $this->updated_at = date('Y-m-d H:i', $tmp->getValue());
+        $this->updated_at = date(format: 'Y-m-d H:i', timestamp: $tmp->getValue());
     }
 
     /**

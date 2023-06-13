@@ -1,15 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Mock\PostMock;
+use App\Core\CreateHtml;
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\CreateHtml;
+use App\Mock\PostMock;
 use App\Model\PostCollection;
 
-class HandlerTopPage implements HandlerInterface
+class HandlerPostPage implements HandlerInterface
 {
     public function run(Request $req): Response
     {
@@ -27,14 +28,14 @@ class HandlerTopPage implements HandlerInterface
     {
         $body = '<body>';
         foreach ($posts as $post) {
-            $body .= '<div class="my-16 bg-slate-800 p-10 rounded-xl">';
-            $body .= '<a href="/post?id=' . $post->getId() . '">';
-            $body .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
-            $body .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . $post->getCreatedAt() . '</p>';
-            $body .= '<img class="my-4 object-contain rounded-xl" src=' . $post->getThumbnail() . ' alt="image">';
-            $body .= '<p class="text-md text-monokaiWhite">' . substr(string: $post->getBody(), offset: 0, length: 100) . '...</p>';
-            $body .= '</a>';
-            $body .= '</div>';
+            if ($post->getId() == $_GET['id']) {
+                $body .= '<div class="my-16 bg-slate-800 p-10 rounded-xl">';
+                $body .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
+                $body .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . $post->getCreatedAt() . '</p>';
+                $body .= '<img class="my-4 object-contain rounded-xl" src=' . $post->getThumbnail() . ' alt="image">';
+                $body .= '<p class="text-md text-monokaiWhite">' . $post->getBody() . '</p>';
+                $body .= '</div>';
+            }
         }
         $body .= '</body>';
         return $body;
