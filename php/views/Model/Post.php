@@ -15,11 +15,10 @@ class Post
     private string $created_at;
     private string $updated_at;
 
-    // TODO: PostgresのPDOの出力について調べる. 入力が想定される型を調べる
     public function __construct(
-        string $id,
+        int $id,
         string $title,
-        string $user_id,
+        int $user_id,
         string $thumbnail,
         string $body,
         string $created_at,
@@ -38,11 +37,9 @@ class Post
 
         $this->body = $body;
 
-        $tmp = new NumberInt($created_at);
-        $this->created_at = date(format: 'Y-m-d H:i', timestamp: $tmp->getValue());
+        $this->created_at = $created_at;
 
-        $tmp = new NumberInt($updated_at);
-        $this->updated_at = date(format: 'Y-m-d H:i', timestamp: $tmp->getValue());
+        $this->updated_at = $updated_at;
     }
 
     /**
