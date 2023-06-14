@@ -9,13 +9,14 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Mock\PostMock;
 use App\Model\PostCollection;
-use App\Repository\RepositoryGetAllPost;
+use App\Repository\RepositoryGetPostById;
 
 class HandlerPostPage implements HandlerInterface
 {
     public function run(Request $req): Response
     {
-        $posts = RepositoryGetAllPost::getAllPosts();
+        $id = $req->getParam()['id'];
+        $posts = RepositoryGetPostById::getPostById(id: $id);
         $html = $this->render($posts);
         return new Response(status_code: '200', body: $html);
     }
