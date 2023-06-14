@@ -38,8 +38,21 @@ class HandlerTopPage implements HandlerInterface
             $body .= '</a>';
             $body .= '</div>';
         }
+        $body .= $this->getForm();
         $body .= '</body>';
         return $body;
+    }
+    private function getForm(): string
+    {
+        $form = '<form action="/" method="POST" >';
+        $form .= '<h2 class="text-3xl text-monokaiWhite">Create New Post</h2>';
+        $form .= '<input type="text" name="title"  placeholder="Enter Title" class="text-slate-800 h-20 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
+        $form .= '<textarea name="body" placeholder="Enter Body" class="text-slate-800 h-96 w-full rounded-lg bg-monokaiWhite px-16 py-5"></textarea>';
+        $form .= '<div class="rounded-lg p-3 w-36 bg-slate-500 hover:bg-monokaiBlue text-center my-5">';
+        $form .= '<input type="submit" value="Submit" class="text-xl">';
+        $form .= '</div>';
+        $form .= '</form>';
+        return $form;
     }
 
     private function render(PostCollection $posts): string
