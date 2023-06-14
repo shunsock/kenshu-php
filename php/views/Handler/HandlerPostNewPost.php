@@ -11,13 +11,15 @@ use App\Model\PostCollection;
 use App\Repository\RepositoryGetAllPost;
 use App\Repository\RepositoryPostNewPost;
 
-class HandlerTopPage implements HandlerInterface
+class HandlerPostNewPost
 {
-    public function run(Request $req): Response
+    public function run(Request $req): void
     {
-        $posts = RepositoryGetAllPost::getAllPosts();
-        $html = $this->render($posts);
-        return new Response(status_code: '200', body: $html);
+        if ($req->getPostData()["title"] !== "" && $req->getPostData()["body"] !== "") {
+            $title = $req->getPostData()["title"];
+            $body = $req->getPostData()["body"];
+            RepositoryPostNewPost::postNewPost($title, $body);
+        }
     }
 
     private function getPosts(): PostCollection
