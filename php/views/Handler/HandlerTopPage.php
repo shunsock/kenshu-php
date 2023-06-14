@@ -9,14 +9,33 @@ use App\Core\Response;
 use App\Core\CreateHtml;
 use App\Model\PostCollection;
 use App\Repository\RepositoryGetAllPost;
+use App\Repository\RepositoryPostNewPost;
 
 class HandlerTopPage implements HandlerInterface
 {
     public function run(Request $req): Response
     {
-        $posts = RepositoryGetAllPost::getAllPosts();
-        $html = $this->render($posts);
-        return new Response(status_code: '200', body: $html);
+        if ($req->getRequestMethod() === "GET") {
+            $posts = RepositoryGetAllPost::getAllPosts();
+            $html = $this->render($posts);
+            return new Response(status_code: '200', body: $html);
+        } else if ($req->getRequestMethod() === "POST") {
+            if ($req->getPostData()["title"] !== "" && $req->getPostData()["body"] !== "") {
+                $title = $req->getPostData()["title"];
+                $body = $req->getPostData()["body"];
+                RepositoryPostNewPost::postNewPost($title, $body);
+                $posts = RepositoryGetAllPost::getAllPosts();
+                $html = $this->render($posts);
+                return new Response(status_code: '200', body: $html);
+            } else {
+                echo '<p class="my-10 px-5 py-3 rounded-lg bg-monokaiRed text-monokaiWhite">ERROR: Please Enter Both of Title and Post</p>';
+                $posts = RepositoryGetAllPost::getAllPosts();
+                $html = $this->render($posts);
+                return new Response(status_code: '200', body: $html);
+            }
+        } else {
+            return new Response(status_code: '405', body: 'Method Not Allowed');
+        }
     }
 
     private function getPosts(): PostCollection
