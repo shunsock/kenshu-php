@@ -10,15 +10,20 @@ use App\Core\Response;
 use App\Mock\PostMock;
 use App\Model\PostCollection;
 use App\Repository\RepositoryGetPostById;
+use PDOException;
 
 class HandlerPostPage implements HandlerInterface
 {
     public function run(Request $req): Response
     {
         $id = $req->getParam()['id'];
-        $posts = RepositoryGetPostById::getPostById(id: $id);
-        $html = $this->render($posts);
-        return new Response(status_code: '200', body: $html);
+        try {
+            $posts = RepositoryGetPostById::getPostById(id: $id);
+            $html = $this->render($posts);
+            return new Response(status_code: '200', body: $html);
+        } catch (PDOException $e) {
+            return Response(status_code: '500', body: 'Internal Server Error: '.$e->getMessage());
+        }
     }
 
     private function getMockPosts(): PostCollection

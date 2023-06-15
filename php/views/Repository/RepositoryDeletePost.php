@@ -20,11 +20,7 @@ class RepositoryDeletePost
     public static function query_run(string $query, string $id): void
     {
         $db = CreateConnectionPDO::CreateConnection();
-        try {
-            $prepared = $db->prepare($query);
-            $prepared->execute([$id]);
-        } catch (PDOException $e) {
-            throw new PDOException(message: 'SQL Processing Failed: ' . $e->getMessage() . '');
-        }
+        $prepared = $db->prepare($query);
+        $prepared->execute([$id]);
     }
 }
