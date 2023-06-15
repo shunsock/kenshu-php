@@ -18,17 +18,18 @@ class HandlerPostPage implements HandlerInterface
         $id = $req->getParam()['id'];
         $posts = RepositoryGetPostById::getPostById(id: $id);
         $html = $this->render($posts);
-        return new Response(status_code: '200', body: $html);
+        try {
+          $res = new Response(status_code: '200', body: $html);
+          return $res;
+        } catch (\Exception $e) {
+          $res = new Response(status_code: '500', body: $e->getMessage());
+          return $res;
+        }
     }
 
     private function getMockPosts(): PostCollection
     {
         return PostMock::getPostCollection();
-    }
-
-    private function getPosts(): PostCollection
-    {
-        return RepositoryGetAllPost::getAllPosts();
     }
 
     private function createBody(PostCollection $posts): string
