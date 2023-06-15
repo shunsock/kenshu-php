@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
-use App\Model\Post;
-use App\Model\PostCollection;
 use PDOException;
 
 class RepositoryDeletePost
@@ -24,9 +22,9 @@ class RepositoryDeletePost
         $db = CreateConnectionPDO::CreateConnection();
         try {
             $prepared = $db->prepare($query);
-            $prepared->execute([ $id ]);
+            $prepared->execute([$id]);
         } catch (PDOException $e) {
-            throw new PDOException( message:'SQL Processing Failed: ' . $e->getMessage() . '');
+            throw new PDOException(message: 'SQL Processing Failed: ' . $e->getMessage() . '');
         }
     }
 }

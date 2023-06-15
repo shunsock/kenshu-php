@@ -52,7 +52,7 @@ class HandlerPostPage implements HandlerInterface
 
     private function getMenu(string $id): string
     {
-        $menu = '<form method="POST" action="/post?id='.$id.'" class="list-none flex text-monokaiWhite text-lg py-10">';
+        $menu = '<form method="POST" action="/post?id=' . $id . '" class="list-none flex text-monokaiWhite text-lg py-10">';
         // TODO: 編集機能をつける
         $menu .= '<input type="hidden" name="_method" value="put">';
         $menu .= '<button type="submit" class="w-[50%] text-center hover:font-bold pr-5 rounded-xl bg-monokaiBlue py-3">Edit</button>';
@@ -61,6 +61,7 @@ class HandlerPostPage implements HandlerInterface
         $menu .= '</form>';
         return $menu;
     }
+
     private function render(PostCollection $posts): string
     {
         $body = $this->createBody($posts);

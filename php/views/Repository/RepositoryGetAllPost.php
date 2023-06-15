@@ -17,10 +17,10 @@ class RepositoryGetAllPost implements RepositoryInterface
         $res = self::query_run($query);
         $posts = new PostCollection();
         foreach ($res as $post) {
-            $id =$post['id'];
+            $id = $post['id'];
             $title = $post['title'];
             $user_id = $post['user_id'];
-            $thumbnail =$post['thumbnail'];
+            $thumbnail = $post['thumbnail'];
             $body = $post['body'];
             $updated_at = $post['updated_at'];
             $created_at = $post['created_at'];
@@ -30,13 +30,13 @@ class RepositoryGetAllPost implements RepositoryInterface
         return $posts;
     }
 
-    public static function query_run(string $query, array $params=[]): array
+    public static function query_run(string $query, array $params = []): array
     {
         $db = CreateConnectionPDO::CreateConnection();
         try {
             $res = $db->query($query)->fetchAll();
         } catch (PDOException) {
-            throw new PDOException(message:'SQL Processing Failed');
+            throw new PDOException(message: 'SQL Processing Failed');
         }
         return $res;
     }

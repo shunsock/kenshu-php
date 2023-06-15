@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\Mock\PostMock;
+use App\Core\CreateHtml;
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\CreateHtml;
+use App\Mock\PostMock;
 use App\Model\PostCollection;
 use App\Repository\RepositoryGetAllPost;
-use App\Repository\RepositoryPostNewPost;
 
 class HandlerTopPage implements HandlerInterface
 {
@@ -42,6 +41,7 @@ class HandlerTopPage implements HandlerInterface
         $body .= '</body>';
         return $body;
     }
+
     private function getForm(): string
     {
         $form = '<form action="/" method="POST" >';
