@@ -34,14 +34,10 @@ class RepositoryGetPostById implements RepositoryInterface
     public static function query_run(string $query, array $params = []): array
     {
         $db = CreateConnectionPDO::CreateConnection();
-        try {
-            $id = $params["id"];
-            $prepared = $db->prepare($query);
-            $prepared->execute([$id]);
-            $result = $prepared->fetchAll();
-        } catch (PDOException) {
-            throw new PDOException(message: 'SQL Processing Failed');
-        }
+        $id = $params["id"];
+        $prepared = $db->prepare($query);
+        $prepared->execute([$id]);
+        $result = $prepared->fetchAll();
         return $result;
     }
 }

@@ -10,8 +10,7 @@ use App\Handler\HandlerTopPage;
 use App\Handler\HandlerPostPage;
 use App\Handler\HandlerPostNewPost;
 use App\Handler\HandlerDeletePost;
-use InvalidArgumentException;
-use PDO;
+use App\Handler\HandlerNotFound;
 
 class Route
 {
@@ -19,32 +18,24 @@ class Route
     {
         if ($req->getUri() === "/" && $req->getRequestMethod() === "GET") {
             // GET REQUEST: Top Page
-            $tmp = new HandlerTopPage();
+            $res = HandlerTopPage::run($req);
         } else if ( $req->getUri() === '/'  && $req->getRequestMethod() === "POST") {
             // POST REQUEST: New Post
-            $tmp = new HandlerPostNewPost();
-            try {
-                $tmp->run(req: $req);
-                header(header: "localhost:8080/", response_code: 301);
-                $tmp = new HandlerTopPage();
-            } catch (InvalidArgumentException $e) {
-                throw PDO::Exception(message: 'SQL Processing Failed: ' . $e->getMessage() . '');
-            }
+            $res = HandlerPostNewPost::run($req);
         } else if (str_contains($req->getUri(), '/post') && $req->getRequestMethod() === "GET") {
-            $tmp = new HandlerPostPage();
+            $res = HandlerPostPage::run($req);
         } else if (str_contains($req->getUri(), '/post') && $req->getPostData()["_method"] === "delete") {
             // DELETE REQUEST: Delete Post
-            $tmp = new HandlerDeletePost();
-            try {
-                $tmp->run(req: $req);
-                header(header: "localhost:8080/", response_code: 301);
-                $tmp = new HandlerTopPage();
-            } catch (InvalidArgumentException $e) {
-                throw PDO::Exception(message: 'SQL Processing Failed: ' . $e->getMessage() . '');
-            }
+            $res = HandlerDeletePost::run($req);
         } else {
-            throw new InvalidArgumentException(message: 'Invalid URI');
+            $res = HandlerNotFound::run();
         }
-        return $tmp->run(req: $req);
+
+        if ($res->getStatusCode() === "301") {
+            header(header: "Location: http://localhost:8080/");
+            $res =  HandlerTopPage::run($req);
+        }
+
+        return $res;
     }
 }

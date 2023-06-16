@@ -33,6 +33,7 @@ class RepositoryGetAllPost implements RepositoryInterface
     public static function query_run(string $query, array $params = []): array
     {
         $db = CreateConnectionPDO::CreateConnection();
+        // catchはHandler
         try {
             $res = $db->query($query)->fetchAll();
         } catch (PDOException) {

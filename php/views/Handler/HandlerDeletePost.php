@@ -5,19 +5,23 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use App\Core\Request;
+use App\Core\Response;
+use App\Html\CreateInternalServerErrorHtml;
 use App\Repository\RepositoryDeletePost;
 use PDOException;
 
 class HandlerDeletePost
 {
-    public function run(Request $req): Response
+    public static function run(Request $req): Response
     {
         try {
             $id = $req->getParam()['id'];
             RepositoryDeletePost::deletePost($id);
-            return Response(message: "OK", status_code: 200);
+            $html = "ok, redirect to top page";
+            return new Response(status_code: "301", body: $html);
         } catch (PDOException) {
-            return Response(message: "Internal Server Error", status_code: 500);
+            $html = new CreateInternalServerErrorHtml();
+            return new Response(status_code: "301", body: $html->getHtml());
         }
     }
 }

@@ -22,11 +22,7 @@ class RepositoryPostNewPost
     public static function query_run(string $query, string $title, string $body): void
     {
         $db = CreateConnectionPDO::CreateConnection();
-        try {
-            $prepared = $db->prepare($query);
-            $prepared->execute([$title, $body]);
-        } catch (PDOException $e) {
-            throw new PDOException(message: 'SQL Processing Failed: ' . $e->getMessage() . '');
-        }
+        $prepared = $db->prepare($query);
+        $prepared->execute([$title, $body]);
     }
 }
