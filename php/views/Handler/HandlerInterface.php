@@ -7,5 +7,5 @@ use App\Core\Response;
 
 interface HandlerInterface
 {
-    public function run(Request $req): Response;
+    public static function run(Request $req): Response;
 }

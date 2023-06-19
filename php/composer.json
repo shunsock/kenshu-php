@@ -13,7 +13,9 @@
     ],
     "require": {
         "smorken/ext-http": "*",
-        "fig/http-message-util": "^1.1"
+        "fig/http-message-util": "^1.1",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.5"
     },
     "config": {
         "allow-plugins": {

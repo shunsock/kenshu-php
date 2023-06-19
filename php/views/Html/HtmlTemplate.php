@@ -2,28 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Core;
+namespace App\Html;
 
-class CreateHtml
+
+class HtmlTemplate
 {
-    private string $html;
-
-    public function __construct(string $content)
-    {
-        $html = '<!DOCTYPE html>';
-        $html .= '<html>';
-        $html .= $this->getHead();
-        $html .= '<body class="bg-slate-700 text-white px-[30%] my-10">';
-        $html .= $this->getHeader();
-        $html .= $this->getNavbar();
-        $html .= $content;
-        $html .= $this->getFooter();
-        $html .= '</body>';
-        $html .= '</html>';
-        $this->html = $html;
-    }
-
-    private function getHead(): string
+    protected function getHead(): string
     {
         $head = '<head>';
         $head .= '<meta charset="UTF-8">';
@@ -54,7 +38,7 @@ class CreateHtml
         return $head;
     }
 
-    private function getHeader(): string
+    protected function getHeader(): string
     {
         $header = '<header>';
         $header .= '<h1 class="text-5xl text-monokaiWhite">String Object is All You Need</h1>';
@@ -63,7 +47,7 @@ class CreateHtml
         return $header;
     }
 
-    private function getNavbar(): string
+    protected function getNavbar(): string
     {
         $navbar = '<nav class="">';
         $navbar .= '<ul class="list-none flex text-monokaiWhite text-lg">';
@@ -75,7 +59,7 @@ class CreateHtml
         return $navbar;
     }
 
-    private function getFooter(): string
+    protected function getFooter(): string
     {
         $footer = '<footer>';
         $footer .= '<p class="text-monokaiComments">@copy right: Shunsock</p>';
@@ -83,8 +67,15 @@ class CreateHtml
         return $footer;
     }
 
-    public function getHtml(): string
+
+    protected function getForm(): string
     {
-        return $this->html;
+        $form = '<form action="/" method="POST" >';
+        $form .= '<h2 class="text-3xl text-monokaiWhite">Create New Post</h2>';
+        $form .= '<input type="text" name="title"  placeholder="Enter Title" class="text-slate-800 h-20 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
+        $form .= '<textarea name="body" placeholder="Enter Body" class="text-slate-800 h-96 w-full rounded-lg bg-monokaiWhite px-16 py-5"></textarea>';
+        $form .= '<button type="submit" value="Submit" class="text-xl rounded-lg p-3 w-36 bg-slate-500 hover:bg-monokaiBlue text-center my-5">Submit</button>';
+        $form .= '</form>';
+        return $form;
     }
 }

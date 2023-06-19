@@ -8,19 +8,34 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Handler\HandlerTopPage;
 use App\Handler\HandlerPostPage;
-use InvalidArgumentException;
+use App\Handler\HandlerPostNewPost;
+use App\Handler\HandlerDeletePost;
+use App\Handler\HandlerNotFound;
 
 class Route
 {
     public static function getHandler(Request $req): Response
     {
-        if ($req->getUri() === "/") {
-            $tmp = new HandlerTopPage();
-        } else if (str_contains($req->getUri(), '/post')) {
-            $tmp = new HandlerPostPage();
+        if ($req->getUri() === "/" && $req->getRequestMethod() === "GET") {
+            // GET REQUEST: Top Page
+            $res = HandlerTopPage::run($req);
+        } else if ( $req->getUri() === '/'  && $req->getRequestMethod() === "POST") {
+            // POST REQUEST: New Post
+            $res = HandlerPostNewPost::run($req);
+        } else if (str_contains($req->getUri(), '/post') && $req->getRequestMethod() === "GET") {
+            $res = HandlerPostPage::run($req);
+        } else if (str_contains($req->getUri(), '/post') && $req->getPostData()["_method"] === "delete") {
+            // DELETE REQUEST: Delete Post
+            $res = HandlerDeletePost::run($req);
         } else {
-            throw new InvalidArgumentException(message: 'Invalid URI');
+            $res = HandlerNotFound::run();
         }
-        return $tmp->run(req: $req);
+
+        if ($res->getStatusCode() === "301") {
+            header(header: "Location: http://localhost:8080/");
+            $res =  HandlerTopPage::run($req);
+        }
+
+        return $res;
     }
 }
