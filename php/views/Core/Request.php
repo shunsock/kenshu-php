@@ -91,6 +91,7 @@ class Request
     {
         return $this->get_param;
     }
+
     public function getPostData(): array
     {
         return $this->post_data;

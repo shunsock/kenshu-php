@@ -3,15 +3,15 @@
 declare(strict_types=1);
 
 namespace App\Core;
+
+use Dotenv\Dotenv;
 use Dotenv\Exception\InvalidFileException;
 use PDO;
 use PDOException;
-use Dotenv\Dotenv;
 
 class CreateConnectionPDO
 {
-    public static function CreateConnection(
-    ): PDO
+    public static function CreateConnection(): PDO
     {
         try {
             Dotenv::createImmutable(paths: __DIR__ . '/')->load();
@@ -25,9 +25,9 @@ class CreateConnectionPDO
             throw new InvalidFileException($e->getMessage(), (int)$e->getCode());
         }
         $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
+            PDO::ATTR_EMULATE_PREPARES => false,
         ];
         try {
             return new PDO($dsn, $user, $pass, $options);

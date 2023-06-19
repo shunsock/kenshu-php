@@ -16,9 +16,9 @@ class Post
     private string $updated_at;
 
     public function __construct(
-        int $id,
+        int    $id,
         string $title,
-        int $user_id,
+        int    $user_id,
         string $thumbnail,
         string $body,
         string $created_at,

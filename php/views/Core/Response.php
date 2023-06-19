@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class Response
 {
-    private string $status_code;
+    private string $statusCode;
     private string $body;
 
     public function __construct(string $status_code, string $body)
@@ -16,7 +16,7 @@ class Response
         if (!preg_match(pattern: '/^[1-5][0-9][0-9]$/', subject: $status_code)) {
             throw new InvalidArgumentException(message: 'Status code is invalid');
         }
-        $this->status_code = $status_code;
+        $this->statusCode = $status_code;
 
         if ($body === "") {
             throw new InvalidArgumentException(message: 'Body is empty');
@@ -26,7 +26,7 @@ class Response
 
     public function getStatusCode(): string
     {
-        return $this->status_code;
+        return $this->statusCode;
     }
 
     public function getBody(): string
