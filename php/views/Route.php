@@ -10,6 +10,8 @@ use App\Handler\HandlerTopPage;
 use App\Handler\HandlerPostPage;
 use App\Handler\HandlerPostNewPost;
 use App\Handler\HandlerDeletePost;
+use App\Handler\HandlerEditPost;
+use App\Handler\HandlerUpdatePost;
 use App\Handler\HandlerNotFound;
 
 class Route
@@ -27,13 +29,20 @@ class Route
         } else if (str_contains($req->getUri(), '/post') && $req->getPostData()["_method"] === "delete") {
             // DELETE REQUEST: Delete Post
             $res = HandlerDeletePost::run($req);
+        } else if (str_contains($req->getUri(), '/edit') && $req->getRequestMethod() === "GET") {
+            // GET REQUEST: Editor
+            $res = HandlerEditPost::run($req);
+        } else if (str_contains($req->getUri(), '/edit') && $req->getPostData()["_method"] === "put") {
+            // PUT REQUEST: Edit Post
+            $res = HandlerUpdatePost::run($req);
         } else {
+            var_dump($req);
             $res = HandlerNotFound::run();
         }
 
         if ($res->getStatusCode() === "301") {
             header(header: "Location: http://localhost:8080/");
-            $res =  HandlerTopPage::run($req);
+            $res = HandlerTopPage::run($req);
         }
 
         return $res;
