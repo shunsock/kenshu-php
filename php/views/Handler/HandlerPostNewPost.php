@@ -19,7 +19,6 @@ class HandlerPostNewPost
                 $title = $req->getPostData()["title"];
                 $body = $req->getPostData()["body"];
                 RepositoryPostNewPost::postNewPost($title, $body);
-                // This response will be redirected to the top page
                 $html = "ok, redirect to top page";
                 return new Response(status_code: "301", body: $html);
             } catch (PDOException) {

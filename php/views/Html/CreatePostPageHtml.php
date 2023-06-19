@@ -44,13 +44,12 @@ class CreatePostPageHtml extends HtmlTemplate Implements HtmlInterface
 
     private function getMenu(string $id): string
     {
-        $menu = '<form method="POST" action="/post?id=' . $id . '" class="list-none flex text-monokaiWhite text-lg py-10">';
-        // TODO: 編集機能をつける
-        $menu .= '<input type="hidden" name="_method" value="put">';
-        $menu .= '<button type="submit" class="w-[50%] text-center hover:font-bold pr-5 rounded-xl bg-monokaiBlue py-3">Edit</button>';
+        $menu = '<div class="flex text-monokaiWhite text-lg py-10">';
+        $menu .= '<a href="/edit?id=' . $id . '" class="inline-block w-[50%] text-center hover:font-bold pr-5 rounded-xl py-10"><div class="inline-block text-center w-full text-center hover:font-bold pr-5 rounded-xl bg-monokaiGreen py-3">Edit</div></a>';
+        $menu .= '<form method="POST" action="/post?id=' . $id . '" class="inline-block w-[50%] text-monokaiWhite text-lg py-10 pl-5">';
         $menu .= '<input type="hidden" name="_method" value="delete">';
-        $menu .= '<button type="submit" class="w-[50%] text-center hover:font-bold pr-5 rounded-xl bg-monokaiRed py-3">Delete</button>';
-        $menu .= '</form>';
+        $menu .= '<button type="submit" class="w-full text-center hover:font-bold pr-5 rounded-xl bg-monokaiRed py-3">Delete</button>';
+        $menu .= '</form></div>';
         return $menu;
     }
 
