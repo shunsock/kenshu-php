@@ -33,7 +33,7 @@ class PostCollection extends ArrayObject
 
     /**
      * @param $key
-     * @param Post $value
+     * @param  $value
      * @return void
      */
     public function offsetSet($key, $value): void
@@ -46,7 +46,7 @@ class PostCollection extends ArrayObject
      * @param Post $value
      * @return void
      */
-    protected function validate($value): void
+    protected function validate(Post $value): void
     {
         if (!$value instanceof Post) {
             throw new InvalidArgumentException(message: 'Not an instance of Post');

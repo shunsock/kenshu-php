@@ -42,7 +42,8 @@ ALTER TABLE "image" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");
 ALTER TABLE "tag" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");
 
 ALTER TABLE "tag" ADD FOREIGN KEY ("tag_id") REFERENCES "tag_name" ("id");
-INSERT INTO "users" (id, name, email, password) VALUES (1, 'shunsock', 'test-email@gmail.com', '12345678');
+INSERT
+INTO "users" (id, name, email, password) VALUES (1, 'admin', 'test-email@gmail.com', 'pass');
 INSERT INTO "post" (title, user_id, thumbnail, body)
 VALUES
     (
