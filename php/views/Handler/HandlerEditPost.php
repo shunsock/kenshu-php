@@ -20,8 +20,8 @@ class HandlerEditPost implements HandlerInterface
         if ($req->doesPostIdExist()){
             $id = $req->getPostId();
         } else {
-            $html = new CreateNotFoundHtml()();
-            return new Response(status_code: '404', body: $html->getHtml())
+            $html = new CreateNotFoundHtml();
+            return new Response(status_code: '404', body: $html->getHtml());
         }
 
         // idが存在する場合は、idに紐づく記事を取得する
