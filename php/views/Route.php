@@ -7,6 +7,7 @@ namespace App;
 use App\Core\Request;
 use App\Core\Response;
 use App\Handler\HandlerLoginPage;
+use App\Handler\HandlerLogin;
 use App\Handler\HandlerTopPage;
 use App\Handler\HandlerPostPage;
 use App\Handler\HandlerPostNewPost;
@@ -37,10 +38,10 @@ class Route
         $method = $req->getRequestMethod();
         if ($uri === "/login" && $method ==="GET"){
             $res = HandlerLoginPage::run($req);
-//        } else if ($uri === "/login" && $method === "POST") {
-//            $res = HandlerLogin::run($req);
-//        } else if ($uri === "/logout" && $method === "POST") {
-//            $res = HandlerLogout::run($req);
+        } else if ($uri === "/login" && $method === "POST") {
+            $res = HandlerLogin::run($req);
+        } else if ($uri === "/logout" && $method === "POST") {
+            $res = HandlerLogout::run($req);
         } else if ($uri === "/" && $method === "GET") {
             $res = HandlerTopPage::run($req);
         } else if ($uri === "/" && $method === "POST") {
