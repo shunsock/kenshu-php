@@ -24,7 +24,7 @@ class User
         string $password,
         string $created_at,
         string $updated_at,
-        string $deleted_at
+        $deleted_at
     )
     {
         if (self::isIdValid($id) === false) {
@@ -44,7 +44,9 @@ class User
 
         $this->updated_at = $updated_at;
 
-        $this->deleted_at = $deleted_at;
+        if ($deleted_at) {
+            $this->deleted_at = $deleted_at;
+        }
     }
 
     private function isIdValid(int $id): bool
@@ -69,6 +71,28 @@ class User
             , subject: $email
         );
         if ($isEmailValid){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+    public function checkPassword(string $password): bool
+    {
+        // TODO: user登録機能を作り, password_verify($password, $this->password) に変更する
+        if ($password === $this->password) {
             return true;
         } else {
             return false;
