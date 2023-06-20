@@ -11,6 +11,9 @@ class Request
     private array $get_param;
     private array $post_data;
 
+    private bool $does_post_id_exist = false;
+    private string $post_id;
+
     public function __construct(
         string $request_method,
         string $uri,
@@ -36,6 +39,16 @@ class Request
             throw new InvalidArgumentException(message: 'Request data is invalid');
         }
         $this->post_data = $post_data;
+
+        if (isset($this->get_param['id'])) {
+            try {
+                new NumberInt($this->get_param['id']);
+            } catch (InvalidArgumentException $e) {
+                throw new InvalidArgumentException(message: 'Request query param is invalid: ' . $e);
+            }
+            $this->does_post_id_exist = true;
+            $this->post_id = $this->get_param['id'];
+        }
     }
 
     /**
@@ -95,5 +108,15 @@ class Request
     public function getPostData(): array
     {
         return $this->post_data;
+    }
+
+    public function doesPostIdExist(): bool
+    {
+        return $this->does_post_id_exist;
+    }
+
+    public function getPostId(): string
+    {
+        return $this->post_id;
     }
 }
