@@ -52,8 +52,7 @@ class HtmlTemplate
         $navbar = '<nav class="">';
         $navbar .= '<ul class="list-none flex text-monokaiWhite text-lg">';
         $navbar .= '<li class="w-[50%] text-center hover:font-bold pr-5"><a href="/"><div class="rounded-xl bg-slate-500 hover:bg-monokaiBlue py-3">Home</div></a></li>';
-        // TODO: Add Login Button and Logout Button
-        $navbar .= '<li class="w-[50%] text-center hover:font-bold pr-5"><a href="/"><div class="rounded-xl bg-slate-500 hover:bg-monokaiBlue py-3">Tentative Button</div></a></li>';
+        $navbar .= '<li class="w-[50%] text-center hover:font-bold pr-5"><a href="/logout"><div class="rounded-xl bg-slate-500 hover:bg-monokaiBlue py-3">Logout</div></a></li>';
         $navbar .= '</ul>';
         $navbar .= '</nav>';
         return $navbar;
