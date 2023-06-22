@@ -17,6 +17,7 @@ use App\Handler\HandlerPostNewPost;
 use App\Handler\HandlerPostPage;
 use App\Handler\HandlerRegister;
 use App\Handler\HandlerRegisterPage;
+use App\Handler\HandlerNotAuthor;
 use App\Handler\HandlerTopPage;
 use App\Handler\HandlerUpdatePost;
 
@@ -51,31 +52,34 @@ class Route
     {
         $uri = $req->getUri();
         $method = $req->getRequestMethod();
-        if ($uri === "/login" && $method === "GET") {
+        if ($uri === "/" && $method === "GET") {
+            $res = HandlerTopPage::run($req);
+        } else if ($uri === "/" && $method === "POST") {
+            $res = HandlerPostNewPost::run($req);
+        } else if ($uri === "/login" && $method === "GET") {
             $res = HandlerLoginPage::run($req);
         } else if ($uri === "/login" && $method === "POST") {
             $res = HandlerLogin::run($req);
         } else if ($uri === "/logout" && $method === "GET") {
             $res = HandlerLogout::run($req);
-        } else if ($uri === "/" && $method === "GET") {
-            $res = HandlerTopPage::run($req);
-        } else if ($uri === "/" && $method === "POST") {
-            $res = HandlerPostNewPost::run($req);
-        } else if (str_contains($uri, '/post') && $method === "GET") {
-            $res = HandlerPostPage::run($req);
-        } else if (str_contains($uri, '/post') && $req->getPostData()["_method"] === "delete") {
-            $res = HandlerDeletePost::run($req);
-        } else if (str_contains($uri, '/edit') && $method === "GET") {
-            $res = HandlerEditPost::run($req);
-        } else if (str_contains($uri, '/edit') && $req->getPostData()["_method"] === "put") {
-            $res = HandlerUpdatePost::run($req);
+        } else if ($uri === "/not-author") {
+            $res = HandlerNotAuthor::run($req);
         } else if ($uri === '/register' && $method === "GET") {
             $res = HandlerRegisterPage::run($req);
         } else if ($uri === '/register' && $method === "POST") {
             $res = HandlerRegister::run($req);
+        } else if (str_contains($uri, '/edit') && $method === "GET") {
+            $res = HandlerEditPost::run($req);
+        } else if (str_contains($uri, '/edit') && $req->getPostData()["_method"] === "put") {
+            $res = HandlerUpdatePost::run($req);
+        } else if (str_contains($uri, '/post') && $method === "GET") {
+            $res = HandlerPostPage::run($req);
+        } else if (str_contains($uri, '/post') && $req->getPostData()["_method"] === "delete") {
+            $res = HandlerDeletePost::run($req);
         } else {
             $res = HandlerNotFound::run();
         }
+
         return $res;
     }
 

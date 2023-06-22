@@ -10,7 +10,7 @@ use App\Model\PostCollection;
 
 class RepositoryGetPostById implements RepositoryInterface
 {
-    public static function getPostById(string $id): PostCollection
+    public static function getPostById(string $id): Post
     {
         $params = ['id' => $id];
         $query = <<<EOT
@@ -29,31 +29,32 @@ class RepositoryGetPostById implements RepositoryInterface
             WHERE p.id = ?
             ORDER BY created_at DESC
         EOT;
-        $res = self::query_run($query, $params);
-        $posts = new PostCollection();
-        foreach ($res as $post) {
-            $id = $post['id'];
-            $title = $post['title'];
-            $user_id = $post['user_id'];
-            $thumbnail = $post['thumbnail'];
-            $body = $post['body'];
-            $updated_at = $post['updated_at'];
-            $created_at = $post['created_at'];
-            $user_name = $post['name'];
-
-            $post = new Post(
-                id: $id
-                , title: $title
-                , user_id: $user_id
-                , thumbnail: $thumbnail
-                , body: $body
-                , updated_at: $updated_at
-                , created_at: $created_at
-                , user_name: $user_name
-            );
-            $posts->append($post);
+        $post = self::query_run($query, $params);
+        if (count($post) !== 1) {
+            throw new \Exception(message: "post not found");
         }
-        return $posts;
+
+        $id = $post[0]['id'];
+        $title = $post[0]['title'];
+        $user_id = $post[0]['user_id'];
+        $thumbnail = $post[0]['thumbnail'];
+        $body = $post[0]['body'];
+        $updated_at = $post[0]['updated_at'];
+        $created_at = $post[0]['created_at'];
+        $user_name = $post[0]['name'];
+
+        $post = new Post(
+            id: $id
+            , title: $title
+            , user_id: $user_id
+            , thumbnail: $thumbnail
+            , body: $body
+            , updated_at: $updated_at
+            , created_at: $created_at
+            , user_name: $user_name
+        );
+
+        return $post;
     }
 
     public static function query_run(string $query, array $params = []): array
