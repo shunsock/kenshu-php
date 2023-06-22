@@ -24,7 +24,7 @@ class User
         string $password,
         string $created_at,
         string $updated_at,
-        $deleted_at
+               $deleted_at
     )
     {
         if (self::isIdValid($id) === false) {
@@ -70,7 +70,7 @@ class User
             pattern: '/^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/'
             , subject: $email
         );
-        if ($isEmailValid){
+        if ($isEmailValid) {
             return true;
         } else {
             return false;
@@ -81,17 +81,20 @@ class User
     {
         return $this->id;
     }
+
     public function getName(): string
     {
         return $this->name;
     }
+
     public function getEmail(): string
     {
         return $this->email;
     }
+
     public function checkPassword(string $password): bool
     {
-        if(password_verify(password: $password, hash: $this->password)){
+        if (password_verify(password: $password, hash: $this->password)) {
             return true;
         } else {
             return false;

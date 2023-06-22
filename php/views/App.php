@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Handler;
 use App\Core\Request;
-use App\Core\Response;
 
 class App
 {

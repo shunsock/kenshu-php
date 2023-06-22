@@ -10,7 +10,8 @@ use App\Html\CreateRegisterPageHtml;
 
 class HandlerRegisterPage implements HandlerInterface
 {
-    public static function run(Request $req): Response {
+    public static function run(Request $req): Response
+    {
         $html = new CreateRegisterPageHtml();
         return new Response(status_code: "200", body: $html->getHtml());
     }

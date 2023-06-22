@@ -17,7 +17,7 @@ class HandlerEditPost implements HandlerInterface
     public static function run(Request $req): Response
     {
         // idが存在しない場合は404を返す
-        if ($req->doesPostIdExist()){
+        if ($req->doesPostIdExist()) {
             $id = $req->getPostId();
         } else {
             $html = new CreateNotFoundHtml();

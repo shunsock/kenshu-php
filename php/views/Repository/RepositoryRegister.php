@@ -24,7 +24,7 @@ class RepositoryRegister
     }
 
     public static function query_run(
-        string $query
+        string   $query
         , string $user_name
         , string $email
         , string $password_hashed

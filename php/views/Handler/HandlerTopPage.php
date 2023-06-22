@@ -6,8 +6,8 @@ namespace App\Handler;
 use App\Core\Request;
 use App\Core\Response;
 use App\Html\CreateInternalServerErrorHtml;
-use App\Repository\RepositoryGetAllPost;
 use App\Html\CreateTopPageHtml;
+use App\Repository\RepositoryGetAllPost;
 use PDOException;
 
 class HandlerTopPage implements HandlerInterface

@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Core\RedirectTarget;
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\RedirectTarget;
-use App\Repository\RepositoryPostNewPost;
-use App\Html\CreateInternalServerErrorHtml;
 use App\Html\CreateBadRequestHtml;
+use App\Html\CreateInternalServerErrorHtml;
+use App\Repository\RepositoryPostNewPost;
 use PDOException;
 
 class HandlerPostNewPost
@@ -31,7 +31,7 @@ class HandlerPostNewPost
                 return new Response(status_code: "500", body: $html->getHtml());
             }
         } else {
-            $html =  new CreateBadRequestHtml();
+            $html = new CreateBadRequestHtml();
             return new Response(status_code: "403", body: $html->getHtml());
         }
     }

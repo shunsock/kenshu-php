@@ -7,7 +7,6 @@ namespace App\Repository;
 use App\Core\CreateConnectionPDO;
 use App\Model\Post;
 use App\Model\PostCollection;
-use PDOException;
 
 class RepositoryGetPostById implements RepositoryInterface
 {

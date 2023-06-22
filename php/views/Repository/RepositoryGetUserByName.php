@@ -20,7 +20,7 @@ class RepositoryGetUserByName implements RepositoryInterface
             throw new InvalidArgumentException();
         }
 
-        $id = (int) $users[0]['id'];
+        $id = (int)$users[0]['id'];
         $name = $users[0]['name'];
         $email = $users[0]['email'];
         $password = $users[0]['password'];

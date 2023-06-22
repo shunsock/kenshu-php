@@ -6,9 +6,10 @@ namespace App\Html;
 
 use App\Model\PostCollection;
 
-class CreatePostPageHtml extends HtmlTemplate Implements HtmlInterface
+class CreatePostPageHtml extends HtmlTemplate implements HtmlInterface
 {
     private string $html;
+
     public function __construct(PostCollection $post_collection)
     {
         $html = '<!DOCTYPE html>';
@@ -23,7 +24,8 @@ class CreatePostPageHtml extends HtmlTemplate Implements HtmlInterface
         $html .= '</html>';
         $this->html = $html;
     }
-    public function getMain (PostCollection $posts): string
+
+    public function getMain(PostCollection $posts): string
     {
         $body = '<body>';
         foreach ($posts as $post) {

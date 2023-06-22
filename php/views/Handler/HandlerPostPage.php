@@ -6,8 +6,8 @@ namespace App\Handler;
 
 use App\Core\Request;
 use App\Core\Response;
-use App\Html\CreatePostPageHtml;
 use App\Html\CreateInternalServerErrorHtml;
+use App\Html\CreatePostPageHtml;
 use App\Repository\RepositoryGetPostById;
 use PDOException;
 

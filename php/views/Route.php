@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Core\RedirectTarget;
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\RedirectTarget;
-use App\Handler\HandlerLoginPage;
-use App\Handler\HandlerLogin;
-use App\Handler\HandlerTopPage;
-use App\Handler\HandlerPostPage;
-use App\Handler\HandlerPostNewPost;
 use App\Handler\HandlerDeletePost;
 use App\Handler\HandlerEditPost;
-use App\Handler\HandlerUpdatePost;
+use App\Handler\HandlerLogin;
+use App\Handler\HandlerLoginPage;
 use App\Handler\HandlerLogout;
-use App\Handler\HandlerRegisterPage;
-use App\Handler\HandlerRegister;
 use App\Handler\HandlerNotFound;
+use App\Handler\HandlerPostNewPost;
+use App\Handler\HandlerPostPage;
+use App\Handler\HandlerRegister;
+use App\Handler\HandlerRegisterPage;
+use App\Handler\HandlerTopPage;
+use App\Handler\HandlerUpdatePost;
 
 class Route
 {
@@ -26,10 +26,10 @@ class Route
     {
         // if user does not have authentication information, redirect to login page
         session_start();
-       self::routeLoginPageIfNotLoggedIn(req: $req);
+        self::routeLoginPageIfNotLoggedIn(req: $req);
         $res = self::routingByUriAndMethod($req);
 
-        self::redirect(req: $req ,res: $res);
+        self::redirect(req: $req, res: $res);
 
         return $res;
 
@@ -41,7 +41,7 @@ class Route
             "/login",
             "/register"
         ];
-        if (empty($_SESSION) && in_array(needle: $req->getUri(), haystack: $allowedPath) === false){
+        if (empty($_SESSION) && in_array(needle: $req->getUri(), haystack: $allowedPath) === false) {
             header(header: "Location: http://localhost:8080/login");
             exit();
         }
@@ -51,7 +51,7 @@ class Route
     {
         $uri = $req->getUri();
         $method = $req->getRequestMethod();
-        if ($uri === "/login" && $method ==="GET"){
+        if ($uri === "/login" && $method === "GET") {
             $res = HandlerLoginPage::run($req);
         } else if ($uri === "/login" && $method === "POST") {
             $res = HandlerLogin::run($req);
@@ -69,9 +69,9 @@ class Route
             $res = HandlerEditPost::run($req);
         } else if (str_contains($uri, '/edit') && $req->getPostData()["_method"] === "put") {
             $res = HandlerUpdatePost::run($req);
-        }  else if ($uri ===  '/register' && $method === "GET") {
+        } else if ($uri === '/register' && $method === "GET") {
             $res = HandlerRegisterPage::run($req);
-        }else if ($uri ===  '/register' && $method === "POST") {
+        } else if ($uri === '/register' && $method === "POST") {
             $res = HandlerRegister::run($req);
         } else {
             $res = HandlerNotFound::run();

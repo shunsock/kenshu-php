@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Core\RedirectTarget;
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\RedirectTarget;
 use App\Html\CreateInternalServerErrorHtml;
 use App\Repository\RepositoryUpdatePostById;
 use PDOException;

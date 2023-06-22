@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
-use PDOException;
 
 class RepositoryUpdatePostById
 {
@@ -18,7 +17,7 @@ class RepositoryUpdatePostById
         $query = "UPDATE post SET title=?, body=? WHERE id = ?";
         self::query_run(
             query: $query,
-            id:  $id,
+            id: $id,
             title: $title,
             body: $body
         );

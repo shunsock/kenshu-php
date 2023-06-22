@@ -6,9 +6,10 @@ namespace App\Html;
 
 use App\Model\PostCollection;
 
-class CreateTopPageHtml extends HtmlTemplate Implements HtmlInterface
+class CreateTopPageHtml extends HtmlTemplate implements HtmlInterface
 {
     private string $html;
+
     public function __construct(PostCollection $post_collection)
     {
         $html = '<!DOCTYPE html>';
@@ -28,7 +29,7 @@ class CreateTopPageHtml extends HtmlTemplate Implements HtmlInterface
 
     private function getMain(PostCollection $posts): string
     {
-        $main= '<main>';
+        $main = '<main>';
         foreach ($posts as $post) {
             $main .= '<div class="my-16 bg-slate-800 p-10 rounded-xl">';
             $main .= '<a href="/post?id=' . $post->getId() . '">';

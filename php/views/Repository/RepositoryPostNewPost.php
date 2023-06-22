@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
-use PDOException;
 
 class RepositoryPostNewPost
 {
