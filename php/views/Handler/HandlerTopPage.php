@@ -19,7 +19,9 @@ class HandlerTopPage implements HandlerInterface
             $posts = RepositoryGetAllPost::getAllPosts();
             $html = new CreateTopPageHtml($posts);
             return new Response(status_code: '200', body: $html->getHtml());
-        } catch (PDOException) {
+        } catch (PDOException $e) {
+            echo $e;
+            die;
             $html = new CreateInternalServerErrorHtml();
             return new Response(status_code: '500', body: $html->getHtml());
         }

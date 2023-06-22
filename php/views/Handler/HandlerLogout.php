@@ -10,10 +10,9 @@ use App\Core\Response;
 
 class HandlerLogout implements HandlerInterface
 {
-    // TODO: after implementation of authentication, change router to redirect to login page
     public static function run(Request $req): Response
     {
-        unset($_SESSION['user_id']);
+        unset($_SESSION['user_name']);
         return new Response(
             status_code: "301"
             , body: "ok, redirect to login page"

@@ -41,7 +41,7 @@ class Route
             "/login",
             "/register"
         ];
-        if (empty($_SESSION) && in_array(needle: $req->getUri(), haystack: $allowedPath) === false) {
+        if (empty($_SESSION['user_name']) && in_array(needle: $req->getUri(), haystack: $allowedPath) === false) {
             header(header: "Location: http://localhost:8080/login");
             exit();
         }
@@ -85,7 +85,7 @@ class Route
             header(header: "Location: http://localhost:8080/login", response_code: 301);
             exit();
         } else if ($res->getStatusCode() === "301" && $res->getRedirectLocation() === RedirectTarget::getHomePath()) {
-            $_SESSION['user_id'] = $req->getPostData()["username"];
+            $_SESSION['user_name'] = $req->getPostData()["username"];
             header(header: "Location: http://localhost:8080/", response_code: 301);
             exit();
         } else if ($res->getStatusCode() === "401" && $res->getRedirectLocation() === RedirectTarget::getLoginPath()) {
