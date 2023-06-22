@@ -91,8 +91,7 @@ class User
     }
     public function checkPassword(string $password): bool
     {
-        // TODO: user登録機能を作り, password_verify($password, $this->password) に変更する
-        if ($password === $this->password) {
+        if(password_verify(password: $password, hash: $this->password)){
             return true;
         } else {
             return false;
