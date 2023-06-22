@@ -27,21 +27,22 @@ class CreatePostPageHtml extends HtmlTemplate implements HtmlInterface
 
     public function getMain(PostCollection $posts): string
     {
-        $body = '<body>';
+        $main = '<body>';
         foreach ($posts as $post) {
             if ($post->getId() == $_GET['id']) {
-                $body .= '<div class="my-5 bg-slate-800 p-10 rounded-xl">';
-                $body .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
-                $body .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . $post->getCreatedAt() . '</p>';
-                $body .= '<img class="my-4 object-contain rounded-xl" src=' . $post->getThumbnail() . ' alt="image">';
-                $body .= '<p class="text-md text-monokaiWhite">' . $post->getBody() . '</p>';
-                $body .= '</div>';
+                $main .= '<div class="my-5 bg-slate-800 p-10 rounded-xl">';
+                $main .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
+                $main .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">User_Name: </span>' . $post->getUserName() . '</p>';
+                $main .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . substr(string: $post->getCreatedAt(), offset: 0, length:10). '</p>';
+                $main .= '<img class="my-4 object-contain rounded-xl" src=' . $post->getThumbnail() . ' alt="image">';
+                $main .= '<p class="text-md text-monokaiWhite">' . $post->getBody() . '</p>';
+                $main .= '</div>';
             }
         }
         $id = $_GET['id'];
-        $body .= $this->getMenu($id);
-        $body .= '</body>';
-        return $body;
+        $main .= $this->getMenu($id);
+        $main .= '</body>';
+        return $main;
     }
 
     private function getMenu(string $id): string
