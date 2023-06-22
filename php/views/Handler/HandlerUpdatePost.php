@@ -6,6 +6,7 @@ namespace App\Handler;
 
 use App\Core\Request;
 use App\Core\Response;
+use App\Core\RedirectTarget;
 use App\Html\CreateInternalServerErrorHtml;
 use App\Repository\RepositoryUpdatePostById;
 use PDOException;
@@ -24,8 +25,12 @@ class HandlerUpdatePost implements HandlerInterface
                 , body: $body
             );
             $html = "ok, redirect to top page";
-            return new Response(status_code: '301', body: $html);
-        } catch (PDOException $error) {
+            return new Response(
+                status_code: '301'
+                , body: $html
+                , redirect_location: RedirectTarget::getHomePath()
+            );
+        } catch (PDOException) {
             $html = new CreateInternalServerErrorHtml();
             return new Response(status_code: '500', body: $html->getHtml());
         }
