@@ -16,6 +16,7 @@ class CreateLoginPageHtml extends HtmlTemplate implements HtmlInterface
         $html .= '<body class="bg-slate-700 text-white px-[30%] my-10">';
         $html .= $this->getHeader();
         $html .= $this->getMain();
+        $html .= $this->getLinkToRegisterPage();
         $html .= $this->getFooter();
         $html .= '</body>';
         $html .= '</html>';
@@ -33,6 +34,12 @@ class CreateLoginPageHtml extends HtmlTemplate implements HtmlInterface
         $main .= '<button type="submit" class="text-xl rounded-lg p-3 w-36 bg-slate-500 hover:bg-monokaiBlue text-center my-5">Submit</button>';
         $main .= '</form>';
         return $main;
+    }
+
+    private function getLinkToRegisterPage(): string
+    {
+        $link = '<p class="py-5">If you do not have account, Please <a href="/register" class="text-monokaiBlue text-lg font-bold">Register</a></p>';
+        return $link;
     }
 
     public function getHtml(): string

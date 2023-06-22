@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Handler;
 use App\Core\Request;
 use App\Core\Response;
+use App\Core\RedirectTarget;
 use App\Repository\RepositoryGetUserByName;
+use InvalidArgumentException;
 use PDOException;
+
 
 class HandlerLogin implements HandlerInterface
 {
@@ -20,27 +23,41 @@ class HandlerLogin implements HandlerInterface
             );
         }
 
-        // username and password are set so we can try to get the user
+        // username and password are set, so we can try to get the user
         try {
             // Collection of User
-            $users = RepositoryGetUserByName::getUserByName(
+            $user = RepositoryGetUserByName::getUserByName(
                 $req->getPostData()["username"]
             );
 
-            if ($users->checkPassword($req->getPostData()["password"]) === false) {
+            if ($user->checkPassword($req->getPostData()["password"]) === false) {
                 return new Response(
-                    status_code: "401",
-                    body: "Unauthorized"
+                    status_code: "401"
+                    , body: "Unauthorized"
+                    , redirect_location: RedirectTarget::getLoginPath()
                 );
             }
+
+            // Login successful
+            $_SESSION['user_id'] = $user->getId();
             return new Response(
-                status_code: "301",
-                body: "ok, redirect to home page"
+                status_code: "301"
+                , body: "ok, redirect to home page"
+                , redirect_location: RedirectTarget::getHomePath()
             );
+
         } catch (PDOException) {
+            // if SQL error, return 500
             return new Response(
                 status_code: "500",
                 body: "Internal Server Error"
+            );
+        } catch (InvalidArgumentException) {
+            // if user does not exist, return 401
+            return new Response(
+                status_code: "401"
+                , body: "Unauthorized"
+                , redirect_location: RedirectTarget::getLoginPath()
             );
         }
     }

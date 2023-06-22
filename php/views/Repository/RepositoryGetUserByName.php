@@ -6,15 +6,19 @@ namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
 use App\Model\User;
+use InvalidArgumentException;
 
 class RepositoryGetUserByName implements RepositoryInterface
 {
     public static function getUserByName(string $user_name): User
     {
-
         $query = 'SELECT * FROM users WHERE name = ?';
         $users = self::query_run(query: $query, params: ["name" => $user_name]);
-        var_dump($users);
+
+        // if there are no user have input name, throw exception
+        if (count($users) === 0) {
+            throw new InvalidArgumentException();
+        }
 
         $id = (int) $users[0]['id'];
         $name = $users[0]['name'];
@@ -23,17 +27,15 @@ class RepositoryGetUserByName implements RepositoryInterface
         $updated_at = $users[0]['updated_at'];
         $created_at = $users[0]['created_at'];
         $deleted_at = $users[0]['deleted_at'];
-        $user = new User(
+        return new User(
             id: $id
             , name: $name
             , email: $email
             , password: $password
-            , updated_at: $updated_at
             , created_at: $created_at
+            , updated_at: $updated_at
             , deleted_at: $deleted_at
         );
-
-        return $user;
     }
 
     /**
@@ -47,7 +49,6 @@ class RepositoryGetUserByName implements RepositoryInterface
         $name = $params["name"];
         $prepared = $db->prepare($query);
         $prepared->execute([$name]);
-        $result = $prepared->fetchAll();
-        return $result;
+        return $prepared->fetchAll();
     }
 }
