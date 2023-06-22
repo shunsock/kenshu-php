@@ -13,7 +13,21 @@ class RepositoryGetAllPost implements RepositoryInterface
 {
     public static function getAllPosts(): PostCollection
     {
-        $query = "SELECT * FROM post";
+        $query = <<<EOT
+            SELECT
+                p.id,
+                p.title,
+                p.user_id,
+                p.thumbnail,
+                p.body,
+                p.updated_at,
+                p.created_at,
+                u.name
+            FROM post p
+            JOIN users u
+            ON p.user_id = u.id
+            ORDER BY created_at DESC
+        EOT;
         $res = self::query_run($query);
         $posts = new PostCollection();
         foreach ($res as $post) {
@@ -24,7 +38,18 @@ class RepositoryGetAllPost implements RepositoryInterface
             $body = $post['body'];
             $updated_at = $post['updated_at'];
             $created_at = $post['created_at'];
-            $post = new Post($id, $title, $user_id, $thumbnail, $body, $updated_at, $created_at);
+            $user_name = $post['name'];
+
+            $post = new Post(
+                id: $id
+                , title: $title
+                , user_id: $user_id
+                , thumbnail: $thumbnail
+                , body: $body
+                , created_at: $created_at
+                , updated_at: $updated_at
+                , user_name: $user_name
+            );
             $posts->append($post);
         }
         return $posts;
