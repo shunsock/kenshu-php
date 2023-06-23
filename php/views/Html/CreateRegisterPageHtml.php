@@ -25,7 +25,15 @@ class CreateRegisterPageHtml extends HtmlTemplate implements HtmlInterface
 
     private function getMain(): string
     {
-        $main = '<form method="POST" action="/register" class="my-10">';
+        $main = "";
+        if (!empty($_SESSION['message'])) {
+            $main .= '<div class="bg-monokaiRed px-5 py-3 my-3 rounded-lg">';
+            $main .= '<h1">403 Bad Request</h1>';
+            $main .= '<p class="text-monokaiWhite font-bold">' . $_SESSION['message'] . '</p>';
+            $main .= '</div>';
+            unset($_SESSION['message']);
+        }
+        $main .= '<form method="POST" action="/register" class="my-10">';
         $main .= '<h2 class="text-3xl text-monokaiWhite my-3">Register</h2>';
         $main .= '<label class="text-monokaiGreen text-lg font-bold">USER NAME</label>';
         $main .= '<input type="text" name="username" placeholder="username" class="text-slate-800 h-16 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
