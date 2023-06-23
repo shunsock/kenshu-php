@@ -27,15 +27,10 @@ class HandlerEditPost implements HandlerInterface
         // idが存在する場合は、idに紐づく記事を取得する
         try {
             $posts = RepositoryGetPostById::getPostById(id: $id);
-            if (count($posts) === 1) {
-                $id = $posts[0]->getId();
-                $title = $posts[0]->getTitle();
-                $body = $posts[0]->getBody();
-                $html = new CreateEditPageHtml(id: $id, title: $title, body: $body);
-            } else {
-                $html = new CreateInternalServerErrorHtml();
-                return new Response(status_code: '500', body: $html->getHtml());
-            }
+            $id = $posts->getId();
+            $title = $posts->getTitle();
+            $body = $posts->getBody();
+            $html = new CreateEditPageHtml(id: $id, title: $title, body: $body);
             return new Response(status_code: '200', body: $html->getHtml());
         } catch (PDOException) {
             $html = new CreateInternalServerErrorHtml();
