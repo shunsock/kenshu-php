@@ -6,7 +6,7 @@ namespace App\Core;
 
 use InvalidArgumentException;
 
-class StringArray
+class StringArrayChecker
 {
     private int $length = 0;
 
@@ -22,7 +22,7 @@ class StringArray
             $this->length++;
 
             if (!is_string($value)) {
-                throw new InvalidArgumentException(message: 'StringArray\'s value type must be string');
+                throw new InvalidArgumentException(message: 'StringArrayChecker\'s value type must be string');
             }
         }
         $this->arr = $arr;
@@ -41,10 +41,8 @@ class StringArray
 
     public function isExist(string $str): bool
     {
-        foreach ($this->arr as $item) {
-            if ($item === $str) {
-                return true;
-            }
+        if (in_array($str, $this->arr, strict: true)) {
+            return true;
         }
         return false;
     }

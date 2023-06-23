@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
-use App\Core\StringArray;
+use App\Core\StringArrayChecker;
 use InvalidArgumentException;
 use PDO;
 
@@ -30,7 +30,7 @@ class RepositoryRegister
         );
     }
 
-    public static function getAllUserName(): StringArray
+    public static function getAllUserName(): StringArrayChecker
     {
         // code below have possible to throw PDOException
         $query = "SELECT name FROM users";
@@ -40,7 +40,7 @@ class RepositoryRegister
         $user_names = $prepared->fetchAll(mode: PDO::FETCH_COLUMN, args: 0);
 
         // code below have possible to throw Invalid Argument Exception
-        return new StringArray($user_names);
+        return new StringArrayChecker($user_names);
     }
 
     public static function InsertUserData(
