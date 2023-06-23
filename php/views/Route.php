@@ -12,12 +12,12 @@ use App\Handler\HandlerEditPost;
 use App\Handler\HandlerLogin;
 use App\Handler\HandlerLoginPage;
 use App\Handler\HandlerLogout;
+use App\Handler\HandlerNotAuthor;
 use App\Handler\HandlerNotFound;
 use App\Handler\HandlerPostNewPost;
 use App\Handler\HandlerPostPage;
 use App\Handler\HandlerRegister;
 use App\Handler\HandlerRegisterPage;
-use App\Handler\HandlerNotAuthor;
 use App\Handler\HandlerTopPage;
 use App\Handler\HandlerUpdatePost;
 
@@ -94,6 +94,10 @@ class Route
             exit();
         } else if ($res->getStatusCode() === "401" && $res->getRedirectLocation() === RedirectTarget::getLoginPath()) {
             header(header: "Location: http://localhost:8080/login");
+            exit();
+        } elseif ($res->getStatusCode() === "400" && $res->getRedirectLocation() === RedirectTarget::getRegisterPath()) {
+            $_SESSION["message"] = $res->getBody();
+            header(header: "Location: http://localhost:8080/register");
             exit();
         }
     }
