@@ -31,7 +31,7 @@ class CreateEditPageHtml extends HtmlTemplate implements HtmlInterface
     ): string
     {
         $form = '<form method="POST" action="/edit?id=' . $id . '">';
-        $form .= '<h2 class="text-3xl text-monokaiWhite">Create New Post</h2>';
+        $form .= '<h2 class="text-3xl text-monokaiWhite">Edit Your Post</h2>';
         $form .= '<input type="hidden" name="_method" value="put">';
         $form .= '<input type="text" name="title" value="' . $title . '" class="text-slate-800 h-20 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $form .= '<textarea name="body" class="text-slate-800 h-96 w-full rounded-lg bg-monokaiWhite px-16 py-5">' . $body . '</textarea>';
