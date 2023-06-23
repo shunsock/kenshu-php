@@ -6,7 +6,7 @@ namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
 use App\Model\Post;
-use App\Model\PostCollection;
+use Exception;
 
 class RepositoryGetPostById implements RepositoryInterface
 {
@@ -31,7 +31,7 @@ class RepositoryGetPostById implements RepositoryInterface
         EOT;
         $post = self::query_run($query, $params);
         if (count($post) !== 1) {
-            throw new \Exception(message: "post not found");
+            throw new Exception(message: "post not found");
         }
 
         $id = $post[0]['id'];

@@ -6,7 +6,6 @@ namespace App\Handler;
 
 use App\Core\Request;
 use App\Core\Response;
-use App\Core\RedirectTarget;
 use App\Html\CreateBadRequestHtml;
 
 class HandlerNotAuthor implements HandlerInterface
