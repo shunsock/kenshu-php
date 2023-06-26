@@ -30,7 +30,7 @@ class Route
         self::routeLoginPageIfNotLoggedIn(req: $req);
         $res = self::routingByUriAndMethod($req);
 
-        self::redirect(req: $req, res: $res);
+        self::redirect(res: $res);
 
         return $res;
 
@@ -83,7 +83,7 @@ class Route
         return $res;
     }
 
-    private static function redirect(Request $req, Response $res): void
+    private static function redirect(Response $res): void
     {
         if ($res->getStatusCode() === "301" && $res->getRedirectLocation() === RedirectTarget::getLoginPath()) {
             header(header: "Location: http://localhost:8080/login", response_code: 301);
