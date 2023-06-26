@@ -38,7 +38,6 @@ class RepositoryRegister
         $prepared = $db->prepare($query);
         $prepared->execute();
         $user_names = $prepared->fetchAll(mode: PDO::FETCH_COLUMN, args: 0);
-
         // code below have possible to throw Invalid Argument Exception
         return new StringArrayChecker($user_names);
     }

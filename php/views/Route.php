@@ -7,7 +7,7 @@ namespace App;
 use App\Core\RedirectTarget;
 use App\Core\Request;
 use App\Core\Response;
-use App\Handler\HandlerDeletePost;
+use App\Handler\HandlerDeletePostById;
 use App\Handler\HandlerEditPost;
 use App\Handler\HandlerLogin;
 use App\Handler\HandlerLoginPage;
@@ -75,7 +75,7 @@ class Route
         } else if (str_contains($uri, '/post') && $method === "GET") {
             $res = HandlerPostPage::run($req);
         } else if (str_contains($uri, '/post') && $req->getPostData()["_method"] === "delete") {
-            $res = HandlerDeletePost::run($req);
+            $res = HandlerDeletePostById::run($req);
         } else {
             $res = HandlerNotFound::run();
         }

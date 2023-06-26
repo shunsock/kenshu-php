@@ -8,16 +8,11 @@ use App\Core\CreateConnectionPDO;
 
 class RepositoryDeletePostById
 {
-    public static function deletePost(
+    public static function commit(
         string $id
     ): void
     {
         $query = "DELETE from post WHERE id = ?";
-        self::query_run($query, $id);
-    }
-
-    public static function query_run(string $query, string $id): void
-    {
         $db = CreateConnectionPDO::CreateConnection();
         $prepared = $db->prepare($query);
         $prepared->execute([$id]);

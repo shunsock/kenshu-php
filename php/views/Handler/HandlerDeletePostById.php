@@ -9,22 +9,23 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Html\CreateInternalServerErrorHtml;
 use App\Repository\RepositoryDeletePostById;
+use OutOfBoundsException as OutOfBoundsExceptionAlias;
 use PDOException;
 
-class HandlerDeletePost
+class HandlerDeletePostById
 {
     public static function run(Request $req): Response
     {
         try {
             $id = $req->getParam()['id'];
-            RepositoryDeletePostById::deletePost($id);
+            RepositoryDeletePostById::commit($id);
             $html = "ok, redirect to top page";
             return new Response(
                 status_code: "301"
                 , body: $html
                 , redirect_location: RedirectTarget::getHomePath()
             );
-        } catch (PDOException) {
+        } catch (PDOException|OutOfBoundsExceptionAlias) {
             $html = new CreateInternalServerErrorHtml();
             return new Response(
                 status_code: "500"
