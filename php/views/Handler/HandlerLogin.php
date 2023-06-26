@@ -27,7 +27,7 @@ class HandlerLogin implements HandlerInterface
         // username and password are set, so we can try to get the user
         try {
             // Collection of User
-            $user = RepositoryGetUserByName::getUserByName(
+            $user = RepositoryGetUserByName::getData(
                 $req->getPostData()["username"]
             );
 

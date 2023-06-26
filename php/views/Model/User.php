@@ -92,12 +92,12 @@ class User
         return $this->email;
     }
 
+    /**
+     * @param string $password
+     * @return bool
+     */
     public function checkPassword(string $password): bool
     {
-        if (password_verify(password: $password, hash: $this->password)) {
-            return true;
-        } else {
-            return false;
-        }
+        return password_verify(password: $password, hash: $this->password);
     }
 }
