@@ -19,7 +19,7 @@ class HandlerPostNewPost
             try {
                 $title = $req->getPostData()["title"];
                 $body = $req->getPostData()["body"];
-                RepositoryPostNewPost::postNewPost($title, $body);
+                RepositoryPostNewPost::commit($title, $body);
                 $html = "ok, redirect to top page";
                 return new Response(
                     status_code: "301"

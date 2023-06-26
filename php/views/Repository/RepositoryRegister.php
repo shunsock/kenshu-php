@@ -11,7 +11,7 @@ use PDO;
 
 class RepositoryRegister
 {
-    public static function RegisterUser(
+    public static function commit(
         string $user_name,
         string $email,
         string $password_hashed

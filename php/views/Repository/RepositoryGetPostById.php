@@ -8,10 +8,11 @@ use App\Core\CreateConnectionPDO;
 use App\Model\Post;
 use Exception;
 
-class RepositoryGetPostById implements RepositoryInterface
+class RepositoryGetPostById
 {
-    public static function getPostById(string $id): Post
+    public static function getData(string $id): Post
     {
+        // run query for database
         $params = ['id' => $id];
         $query = <<<EOT
             SELECT
@@ -29,11 +30,16 @@ class RepositoryGetPostById implements RepositoryInterface
             WHERE p.id = ?
             ORDER BY created_at DESC
         EOT;
-        $post = self::query_run($query, $params);
+        $db = CreateConnectionPDO::CreateConnection();
+        $id = $params["id"];
+        $prepared = $db->prepare($query);
+        $prepared->execute([$id]);
+        $post = $prepared->fetchAll();
         if (count($post) !== 1) {
             throw new Exception(message: "post not found");
         }
 
+        // attach type to data
         $id = $post[0]['id'];
         $title = $post[0]['title'];
         $user_id = $post[0]['user_id'];
@@ -55,15 +61,5 @@ class RepositoryGetPostById implements RepositoryInterface
         );
 
         return $post;
-    }
-
-    public static function query_run(string $query, array $params = []): array
-    {
-        $db = CreateConnectionPDO::CreateConnection();
-        $id = $params["id"];
-        $prepared = $db->prepare($query);
-        $prepared->execute([$id]);
-        $result = $prepared->fetchAll();
-        return $result;
     }
 }

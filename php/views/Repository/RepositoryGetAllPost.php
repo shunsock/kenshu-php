@@ -11,7 +11,7 @@ use PDOException;
 
 class RepositoryGetAllPost implements RepositoryInterface
 {
-    public static function getAllPosts(): PostCollection
+    public static function getData(): PostCollection
     {
         $query = <<<EOT
             SELECT

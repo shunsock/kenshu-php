@@ -10,7 +10,7 @@ use InvalidArgumentException;
 
 class RepositoryGetUserByName implements RepositoryInterface
 {
-    public static function getUserByName(string $user_name): User
+    public static function getData(string $user_name): User
     {
         $query = 'SELECT * FROM users WHERE name = ?';
         $users = self::query_run(query: $query, params: ["name" => $user_name]);

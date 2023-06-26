@@ -19,7 +19,7 @@ class HandlerUpdatePost implements HandlerInterface
             $id = $req->getParam()["id"];
             $title = $req->getPostData()["title"];
             $body = $req->getPostData()["body"];
-            RepositoryUpdatePostById::updatePost(
+            RepositoryUpdatePostById::commit(
                 id: $id
                 , title: $title
                 , body: $body

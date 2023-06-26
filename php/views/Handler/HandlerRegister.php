@@ -42,7 +42,7 @@ class HandlerRegister
             $username = $req->getPostData()["username"];
             $email = $req->getPostData()["email"];
             $password_hashed = password_hash($req->getPostData()["password"], algo: PASSWORD_DEFAULT);
-            RepositoryRegister::RegisterUser(
+            RepositoryRegister::commit(
                 user_name: $username
                 , email: $email
                 , password_hashed: $password_hashed
