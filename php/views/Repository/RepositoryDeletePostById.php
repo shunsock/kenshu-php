@@ -6,7 +6,7 @@ namespace App\Repository;
 
 use App\Core\CreateConnectionPDO;
 
-class RepositoryDeletePost
+class RepositoryDeletePostById
 {
     public static function deletePost(
         string $id

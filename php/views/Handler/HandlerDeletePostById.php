@@ -8,7 +8,7 @@ use App\Core\RedirectTarget;
 use App\Core\Request;
 use App\Core\Response;
 use App\Html\CreateInternalServerErrorHtml;
-use App\Repository\RepositoryDeletePost;
+use App\Repository\RepositoryDeletePostById;
 use PDOException;
 
 class HandlerDeletePost
@@ -17,7 +17,7 @@ class HandlerDeletePost
     {
         try {
             $id = $req->getParam()['id'];
-            RepositoryDeletePost::deletePost($id);
+            RepositoryDeletePostById::deletePost($id);
             $html = "ok, redirect to top page";
             return new Response(
                 status_code: "301"
