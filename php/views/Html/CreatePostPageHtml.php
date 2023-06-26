@@ -57,9 +57,9 @@ class CreatePostPageHtml extends HtmlTemplate implements HtmlInterface
         $menu = '<div class="flex text-monokaiWhite text-lg py-10">';
         $menu .= '<a href="' . $edit_action . '" class="inline-block w-[50%] text-center hover:font-bold pr-5 rounded-xl py-10"><div class="inline-block text-center w-full text-center hover:font-bold pr-5 rounded-xl bg-monokaiGreen py-3">Edit</div></a>';
 
-        $delete_action = $this->isAuthorOfPost ? "/delete?id=" . $id : "/not-author";
-        $menu .= '<input type="hidden" name="_method" value="delete">';
+        $delete_action = $this->isAuthorOfPost ? "/post?id=" . $id : "/not-author";
         $menu .= '<form method="POST" action="' . $delete_action . '" class="inline-block w-[50%] text-monokaiWhite text-lg py-10 pl-5">';
+        $menu .= '<input type="hidden" name="_method" value="delete">';
         $menu .= '<button type="submit" class="w-full text-center hover:font-bold pr-5 rounded-xl bg-monokaiRed py-3">Delete</button>';
         $menu .= '</form></div>';
         return $menu;

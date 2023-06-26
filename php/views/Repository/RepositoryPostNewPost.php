@@ -14,14 +14,19 @@ class RepositoryPostNewPost
     ): void
     {
         // TODO: 画像のアップロード機能を作成する
-        $query = "INSERT INTO post (title, user_id, thumbnail, body) VALUES (?, 1, 'https://images.unsplash.com/photo-1506606401543-2e73709cebb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80', ?);";
-        self::query_run($query, $title, $body);
+        $user_id_string = (string) $_SESSION['user_id'];
+        self::submitPost(
+            title: $title,
+            user_id: $user_id_string ,
+            body: $body
+        );
     }
 
-    public static function query_run(string $query, string $title, string $body): void
+    public static function submitPost(string $title, string $user_id, string $body): void
     {
+        $query = "INSERT INTO post (title, user_id, thumbnail, body) VALUES (?, ?, 'https://images.unsplash.com/photo-1506606401543-2e73709cebb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80', ?);";
         $db = CreateConnectionPDO::CreateConnection();
         $prepared = $db->prepare($query);
-        $prepared->execute([$title, $body]);
+        $prepared->execute([$title, $user_id,  $body]);
     }
 }
