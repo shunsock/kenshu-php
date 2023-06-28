@@ -14,6 +14,7 @@ class Post
     private string $body;
     private string $created_at;
     private string $updated_at;
+    private string $user_name;
 
     public function __construct(
         int    $id,
@@ -22,7 +23,8 @@ class Post
         string $thumbnail,
         string $body,
         string $created_at,
-        string $updated_at
+        string $updated_at,
+        string $user_name
     )
     {
         $id_checked = new NumberInt($id);
@@ -40,6 +42,8 @@ class Post
         $this->created_at = $created_at;
 
         $this->updated_at = $updated_at;
+
+        $this->user_name = $user_name;
     }
 
     /**
@@ -84,5 +88,10 @@ class Post
     public function getUpdatedAt(): string
     {
         return $this->updated_at;
+    }
+
+    public function getUserName(): string
+    {
+        return $this->user_name;
     }
 }

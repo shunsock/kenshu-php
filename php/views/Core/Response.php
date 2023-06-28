@@ -4,14 +4,21 @@ declare(strict_types=1);
 namespace App\Core;
 
 
+use AllowDynamicProperties;
 use InvalidArgumentException;
 
-class Response
+#[AllowDynamicProperties] class Response
 {
     private string $statusCode;
     private string $body;
 
-    public function __construct(string $status_code, string $body)
+    private ?string $redirect_location = null;
+
+    public function __construct(
+        string $status_code,
+        string $body,
+        string $redirect_location = ""
+    )
     {
         if (!preg_match(pattern: '/^[1-5][0-9][0-9]$/', subject: $status_code)) {
             throw new InvalidArgumentException(message: 'Status code is invalid');
@@ -22,6 +29,9 @@ class Response
             throw new InvalidArgumentException(message: 'Body is empty');
         }
         $this->body = $body;
+
+        $this->redirect_location = $redirect_location;
+
     }
 
     public function getStatusCode(): string
@@ -32,5 +42,10 @@ class Response
     public function getBody(): string
     {
         return $this->body;
+    }
+
+    public function getRedirectLocation(): string
+    {
+        return $this->redirect_location;
     }
 }

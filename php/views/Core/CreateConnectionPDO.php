@@ -14,7 +14,7 @@ class CreateConnectionPDO
     public static function CreateConnection(): PDO
     {
         try {
-            Dotenv::createImmutable(paths: __DIR__ . '/')->load();
+            Dotenv::createImmutable(paths: __DIR__)->load();
             $host = $_ENV['HOST'];
             $db = $_ENV['DATABASE'];
             $user = $_ENV['USERNAME'];

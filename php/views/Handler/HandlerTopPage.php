@@ -6,8 +6,8 @@ namespace App\Handler;
 use App\Core\Request;
 use App\Core\Response;
 use App\Html\CreateInternalServerErrorHtml;
-use App\Repository\RepositoryGetAllPost;
 use App\Html\CreateTopPageHtml;
+use App\Repository\RepositoryGetAllPost;
 use PDOException;
 
 class HandlerTopPage implements HandlerInterface
@@ -16,7 +16,7 @@ class HandlerTopPage implements HandlerInterface
     {
         // repositoryが例外を投げるのでここでtry catch
         try {
-            $posts = RepositoryGetAllPost::getAllPosts();
+            $posts = RepositoryGetAllPost::getData();
             $html = new CreateTopPageHtml($posts);
             return new Response(status_code: '200', body: $html->getHtml());
         } catch (PDOException) {

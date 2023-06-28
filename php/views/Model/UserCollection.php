@@ -6,12 +6,12 @@ namespace App\Model;
 use ArrayObject;
 use InvalidArgumentException;
 
-// Note: PHPでは`Post[]`のような配列の宣言ができない
+// Note: PHPでは`User[]`のような配列の宣言ができない
 // REFERENCE: https://www.php.net/manual/ja/class.arrayobject.php
-class PostCollection extends ArrayObject
+class UserCollection extends ArrayObject
 {
     /**
-     * @param Post[] $items
+     * @param User[] $items
      */
     public function __construct(array $items = [])
     {
@@ -22,7 +22,7 @@ class PostCollection extends ArrayObject
     }
 
     /**
-     * @param Post $value
+     * @param User $value
      * @return void
      */
     public function append($value): void
@@ -43,13 +43,13 @@ class PostCollection extends ArrayObject
     }
 
     /**
-     * @param Post $value
+     * @param User $value
      * @return void
      */
-    protected function validate(Post $value): void
+    protected function validate(User $value): void
     {
-        if (!$value instanceof Post) {
-            throw new InvalidArgumentException(message: 'Not an instance of Post');
+        if (!$value instanceof User) {
+            throw new InvalidArgumentException(message: 'Not an instance of User');
         }
     }
 }

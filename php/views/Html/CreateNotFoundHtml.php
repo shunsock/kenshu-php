@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Html;
 
-class CreateNotFoundHtml extends HtmlTemplate Implements HtmlInterface
+class CreateNotFoundHtml extends HtmlTemplate implements HtmlInterface
 {
     private string $html;
+
     public function __construct()
     {
         $html = '<!DOCTYPE html>';
