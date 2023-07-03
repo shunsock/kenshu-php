@@ -33,12 +33,14 @@ class CreateRegisterPageHtml extends HtmlTemplate implements HtmlInterface
             $main .= '</div>';
             unset($_SESSION['message']);
         }
-        $main .= '<form method="POST" action="/register" class="my-10">';
+        $main .= '<form method="POST" action="/register" class="my-10" enctype="multipart/form-data">';
         $main .= '<h2 class="text-3xl text-monokaiWhite my-3">Register</h2>';
         $main .= '<label class="text-monokaiGreen text-lg font-bold">USER NAME</label>';
         $main .= '<input type="text" name="username" placeholder="username" class="text-slate-800 h-16 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $main .= '<label class="text-monokaiGreen text-lg font-bold">EMAIL</label>';
         $main .= '<input type="text" name="email" placeholder="exmaple@example.com" class="text-slate-800 h-16 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
+        $main .=  '<label class="text-monokaiGreen text-lg font-bold">PROFILE IMAGE</label>';
+        $main .= '<input type="file" name="user-image" class="text-slate-800 h-16 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $main .= '<label class="text-monokaiGreen text-lg font-bold">PASSWORD</label>';
         $main .= '<input type="password" name="password" placeholder="password" class="text-slate-800 h-16 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $main .= '<button type="submit" class="text-xl rounded-lg p-3 w-36 bg-slate-500 hover:bg-monokaiBlue text-center my-5">Submit</button>';
@@ -48,8 +50,7 @@ class CreateRegisterPageHtml extends HtmlTemplate implements HtmlInterface
 
     private function getLinkToLoginPage(): string
     {
-        $link = '<p class="py-5">If you already have account, Please <a href="/login" class="text-monokaiBlue text-lg font-bold">Login</a></p>';
-        return $link;
+        return '<p class="py-5">If you already have account, Please <a href="/login" class="text-monokaiBlue text-lg font-bold">Login</a></p>';
     }
 
     public function getHtml(): string

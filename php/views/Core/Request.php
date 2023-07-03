@@ -72,6 +72,8 @@ class Request
     {
         if (preg_match(pattern: '/^([\/]?([a-zA-Z\-]+)*(\?[a-zA-Z]+=[a-zA-Z0-9]+)?)$/', subject: $uri)) {
             return true;
+        } else if (preg_match(pattern: '{^([\/](views/Image)[\/].+)$}', subject: $uri)) {
+            return true;
         } else {
             return false;
         }

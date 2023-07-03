@@ -2,6 +2,7 @@ CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(80) NOT NULL,
     "email" VARCHAR(32) NOT NULL,
+    "user_image_path" VARCHAR(256) NOT NULL,
     "password" VARCHAR(256) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -43,8 +44,14 @@ ALTER TABLE "image" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");
 ALTER TABLE "tag" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");
 
 ALTER TABLE "tag" ADD FOREIGN KEY ("tag_id") REFERENCES "tag_name" ("id");
-INSERT
-INTO "users" (name, email, password) VALUES ('admin', 'test-email@gmail.com', 'pass');
+INSERT INTO "users" (name, email, user_image_path, password)
+VALUES
+    (
+        'admin'
+        , 'test-email@gmail.com'
+        , 'https://avatars.githubusercontent.com/u/84004458?v=4'
+        , 'pass'
+    );
 INSERT INTO "post" (title, user_id, thumbnail, body)
 VALUES
     (

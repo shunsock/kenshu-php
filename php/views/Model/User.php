@@ -12,6 +12,8 @@ class User
     private int $id;
     private string $name;
     private string $email;
+
+    private string $image_path;
     private string $password;
     private string $created_at;
     private string $updated_at;
@@ -21,6 +23,7 @@ class User
         int    $id,
         string $name,
         string $email,
+        string $image_path,
         string $password,
         string $created_at,
         string $updated_at,
@@ -37,6 +40,8 @@ class User
             throw new InvalidArgumentException(message: 'email is invalid');
         }
         $this->email = $email;
+
+        $this->image_path = $image_path;
 
         $this->password = $password;
 
@@ -90,6 +95,11 @@ class User
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function getImagePath(): string
+    {
+        return $this->image_path;
     }
 
     /**

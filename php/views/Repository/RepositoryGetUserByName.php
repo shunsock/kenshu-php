@@ -23,6 +23,7 @@ class RepositoryGetUserByName implements RepositoryInterface
         $id = (int)$users[0]['id'];
         $name = $users[0]['name'];
         $email = $users[0]['email'];
+        $image_path = $users[0]['user_image_path'];
         $password = $users[0]['password'];
         $updated_at = $users[0]['updated_at'];
         $created_at = $users[0]['created_at'];
@@ -31,6 +32,7 @@ class RepositoryGetUserByName implements RepositoryInterface
             id: $id
             , name: $name
             , email: $email
+            , image_path: $image_path
             , password: $password
             , created_at: $created_at
             , updated_at: $updated_at

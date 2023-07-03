@@ -43,6 +43,10 @@ class HtmlTemplate
         $header = '<header>';
         $header .= '<h1 class="text-5xl text-monokaiWhite">String Object is All You Need</h1>';
         $header .= '<p class="text-monokaiComments my-5 ml-1">Make Your Life Better with String Object.</p>';
+        if (isset($_SESSION["user_image"])){
+            $header .= '<div><img src="/Image/'.$_SESSION["user_image"].'">';
+            $header .= '<p class="text-monokaiWhite">'.$_SESSION["user_name"].'</p></div>';
+        }
         $header .= '</header>';
         return $header;
     }

@@ -15,5 +15,3 @@ WORKDIR /var/www/html
 RUN composer install --no-dev
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
-
-COPY . /var/www/html
