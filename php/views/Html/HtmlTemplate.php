@@ -73,7 +73,7 @@ class HtmlTemplate
 
     protected function getForm(): string
     {
-        $form = '<form action="/" method="POST" enttype="multipart/form-data">';
+        $form = '<form action="/" method="POST" enctype="multipart/form-data">';
         $form .= '<h2 class="text-3xl text-monokaiWhite">Create New Post</h2>';
         $form .= '<input type="text" name="title"  placeholder="Enter Title" class="text-slate-800 h-20 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $form .= '<textarea name="body" placeholder="Enter Body" class="text-slate-800 h-96 w-full rounded-lg bg-monokaiWhite px-16 py-5"></textarea>';
