@@ -9,13 +9,9 @@ use InvalidArgumentException;
 class UploadedImageChecker
 {
     // TODO: Change Class Array to Something Other...
-    private array $image_names = [];
-    private array $image_types = [];
-    private array $image_bases = [];
-
-    private string $image_name;
-    private string $image_type;
-    private string $image_base;
+    private array $image_name = [];
+    private array $image_type = [];
+    private array $image_base = [];
 
     public function __construct()
     {
@@ -30,9 +26,9 @@ class UploadedImageChecker
                 $this->image_bases[$i] = $_FILES["user-image"]["tmp_name"][$i];
             }
         } else {
-            $this->image_name = (string) $_FILES["user-image"]["name"];
-            $this->image_type =  (string) $_FILES["user-image"]["type"];
-            $this->image_base = (string) $_FILES["user-image"]["tmp_name"];
+            $this->image_names[0] = (string) $_FILES["user-image"]["name"];
+            $this->image_types[0] =  (string) $_FILES["user-image"]["type"];
+            $this->image_bases[0] = (string) $_FILES["user-image"]["tmp_name"];
         }
     }
 
@@ -76,36 +72,24 @@ class UploadedImageChecker
     /*
      *   object type of array is only string
      */
-    public function getImageNames(): array
-    {
-        return $this->image_names;
-    }
-
-    /*
-     * object type of array is only string
-     */
-    public function getImageTypes(): array
-    {
-        return $this->image_types;
-    }
-
-    /*
-     * object type of array is only string
-     */
-    public function getImageBases(): array
-    {
-        return $this->image_bases;
-    }
-    public function getImage(): string
-    {
-        return $this->image_base;
-    }
-    public function getImageName(): string
+    public function getImageName(): array
     {
         return $this->image_name;
     }
-    public function getImageType(): string
+
+    /*
+     * object type of array is only string
+     */
+    public function getImageType(): array
     {
         return $this->image_type;
+    }
+
+    /*
+     * object type of array is only string
+     */
+    public function getImageBase(): array
+    {
+        return $this->image_base;
     }
 }
