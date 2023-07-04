@@ -21,14 +21,14 @@ class UploadedImageChecker
         if (is_array($_FILES["user-image"]["name"])) {
             $numOfUploadedImage = sizeof($_FILES["user-image"]["name"]);
             for ($i = 0; $i < $numOfUploadedImage; $i++) {
-                $this->image_names[$i] = $_FILES["user-image"]["name"][$i];
-                $this->image_types[$i] =  $_FILES["user-image"]["type"][$i];
-                $this->image_bases[$i] = $_FILES["user-image"]["tmp_name"][$i];
+                $this->image_name[$i] = $_FILES["user-image"]["name"][$i];
+                $this->image_type[$i] =  $_FILES["user-image"]["type"][$i];
+                $this->image_base[$i] = $_FILES["user-image"]["tmp_name"][$i];
             }
         } else {
-            $this->image_names[0] = (string) $_FILES["user-image"]["name"];
-            $this->image_types[0] =  (string) $_FILES["user-image"]["type"];
-            $this->image_bases[0] = (string) $_FILES["user-image"]["tmp_name"];
+            $this->image_name[0] = (string) $_FILES["user-image"]["name"];
+            $this->image_type[0] =  (string) $_FILES["user-image"]["type"];
+            $this->image_base[0] = (string) $_FILES["user-image"]["tmp_name"];
         }
     }
 
