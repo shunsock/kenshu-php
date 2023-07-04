@@ -32,7 +32,7 @@ class HandlerPostNewPost
         $image_paths = [];
         $count = 0;
         for ($i = 0; $i < sizeof($user_image->getImageName()); $i++) {
-            $folder = "/var/www/html/public/Image/" . $_SESSION["user_name"] . "_" . $user_image->getImageName()[$i];
+            $folder = $user_image->getImageName()[$i];
             $image_paths[$i] = $folder;
             $count++;
         }
@@ -58,7 +58,8 @@ class HandlerPostNewPost
             $count = 0;
             for ($i = 0; $i < count($user_image->getImageBase()); $i++) {
                 $tmp_image_location = $user_image->getImageTmpName()[$i];
-                $folder = "/var/www/html/public/Image/" . $_SESSION["user_name"] . "_" . $user_image->getImageName()[$i];
+                $target_image_location = "/var/www/html/public/Image/" . $user_image->getImageName()[$i];
+                move_uploaded_file($tmp_image_location,  $target_image_location);
                 $count++;
             }
 

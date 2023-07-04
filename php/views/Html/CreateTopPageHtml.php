@@ -36,7 +36,7 @@ class CreateTopPageHtml extends HtmlTemplate implements HtmlInterface
             $main .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
             $main .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">User_Name: </span>' . $post->getUserName() . '</p>';
             $main .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . substr(string: $post->getCreatedAt(), offset: 0, length: 10) . '</p>';
-            $main .= '<img class="my-4 object-contain rounded-xl" src=' . $post->getThumbnail() . ' alt="image">';
+            $main .= '<img class="my-4 object-contain rounded-xl" src="/Image/' . $post->getThumbnail() . '" alt="image">';
             $main .= '<p class="text-md text-monokaiWhite">' . substr(string: $post->getBody(), offset: 0, length: 100) . '...</p>';
             $main .= '</a>';
             $main .= '</div>';
