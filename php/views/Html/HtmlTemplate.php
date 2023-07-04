@@ -77,7 +77,7 @@ class HtmlTemplate
         $form .= '<h2 class="text-3xl text-monokaiWhite">Create New Post</h2>';
         $form .= '<input type="text" name="title"  placeholder="Enter Title" class="text-slate-800 h-20 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $form .= '<textarea name="body" placeholder="Enter Body" class="text-slate-800 h-96 w-full rounded-lg bg-monokaiWhite px-16 py-5"></textarea>';
-        $form .= '<input id="upload-images" class="w-full bg-monokaiWhite py-5 px-16 my-3 rounded-lg" name="upload=images" type="file" multiple />';
+        $form .= '<input class="w-full bg-monokaiWhite py-5 px-16 my-3 rounded-lg" id="user-image[]" name="user-image[]" type="file"  multiple />';
         $form .= '<button type="submit" value="Submit" class="text-xl rounded-lg p-3 w-36 bg-slate-500 hover:bg-monokaiBlue text-center my-5">Submit</button>';
         $form .= '</form>';
         return $form;

@@ -62,7 +62,7 @@ class HandlerRegister
                 , image_name: $image_name
                 , password_hashed: $password_hashed
             );
-            $folder = "/var/www/html/views/Image/" . $image_name;
+            $folder = "/var/www/html/public/Image/" . $image_name;
             move_uploaded_file($_FILES["user-image"]["tmp_name"], $folder);
             $html = "ok, redirect to top page";
             return new Response(

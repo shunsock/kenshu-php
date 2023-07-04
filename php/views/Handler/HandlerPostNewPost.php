@@ -19,7 +19,6 @@ class HandlerPostNewPost
         // check images
         try {
             var_dump($_FILES);
-            die;
             $user_image = new UploadedImageChecker();
             $image_name = $req->getPostData()["username"]."_".$user_image->getImageName();
         } catch (Exception $e) {
