@@ -18,7 +18,6 @@ class HandlerPostNewPost
     public static function run(Request $req): Response
     {
         // check images
-        $image_names = [];
         try {
             $user_image = new UploadedImageChecker();
         } catch (InvalidArgumentException $e) {
@@ -30,6 +29,14 @@ class HandlerPostNewPost
             );
         }
 
+        $image_paths = [];
+        $count = 0;
+        for ($i = 0; $i < sizeof($user_image->getImageName()); $i++) {
+            $folder = "/var/www/html/public/Image/" . $_SESSION["user_name"] . "_" . $user_image->getImageName()[$i];
+            $image_paths[$i] = $folder;
+            $count++;
+        }
+
         // check if the form is filled
         if ($req->getPostData()["title"] === "" && $req->getPostData()["body"] === "") {
             $html = new CreateBadRequestHtml();
@@ -39,13 +46,24 @@ class HandlerPostNewPost
         try {
             $title = $req->getPostData()["title"];
             $body = $req->getPostData()["body"];
-            RepositoryPostNewPost::commit($title, $body, $image_names);
+
+            // insert data into the database
+            RepositoryPostNewPost::commit(
+                title: $title
+                , body: $body
+                , image_paths: $image_paths
+            );
+
+            // move images to the folder
             $count = 0;
             for ($i = 0; $i < count($user_image->getImageBase()); $i++) {
                 $tmp_image_location = $user_image->getImageTmpName()[$i];
                 $folder = "/var/www/html/public/Image/" . $_SESSION["user_name"] . "_" . $user_image->getImageName()[$i];
                 $count++;
             }
+
+            // redirect to the home page
+            $html = "投稿が完了しました。";
             return new Response(
                 status_code: "301"
                 , body: $html

@@ -26,11 +26,11 @@ class RepositoryPostNewPost
         $query = "INSERT INTO post (title, user_id, thumbnail, body) VALUES (?, ?, ?,?);";
         $db = CreateConnectionPDO::CreateConnection();
         $prepared = $db->prepare($query);
-        $prepared->execute([$title, $user_id_string,$image_paths, $body]);
+        // 複数画像があった場合thumbnailは
+        $prepared->execute([$title, $user_id_string,$image_paths[0], $body]);
 
         // get id of the created post
-        $row = $prepared->fetch();
-        $id = $row['id'];
+        $id = $db->lastInsertId();
 
         // insert image paths into image table
         // N+1 Problem is occurred here, but we do not have idea to solve it.
