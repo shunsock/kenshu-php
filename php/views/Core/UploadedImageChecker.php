@@ -10,6 +10,7 @@ class UploadedImageChecker
 {
     // TODO: Change Class Array to Something Other...
     private array $image_name = [];
+    private array $image_tmp_name = [];
     private array $image_type = [];
     private array $image_base = [];
 
@@ -22,11 +23,13 @@ class UploadedImageChecker
             $numOfUploadedImage = sizeof($_FILES["user-image"]["name"]);
             for ($i = 0; $i < $numOfUploadedImage; $i++) {
                 $this->image_name[$i] = $_FILES["user-image"]["name"][$i];
+                $this->image_tmp_name[$i] = $_FILES["user-image"]["tmp_name"][$i];
                 $this->image_type[$i] =  $_FILES["user-image"]["type"][$i];
                 $this->image_base[$i] = $_FILES["user-image"]["tmp_name"][$i];
             }
         } else {
             $this->image_name[0] = (string) $_FILES["user-image"]["name"];
+            $this->image_tmp_name[0] = (string) $_FILES["user-image"]["tmp_name"];
             $this->image_type[0] =  (string) $_FILES["user-image"]["type"];
             $this->image_base[0] = (string) $_FILES["user-image"]["tmp_name"];
         }
@@ -75,6 +78,10 @@ class UploadedImageChecker
     public function getImageName(): array
     {
         return $this->image_name;
+    }
+    public function getImageTmpName(): array
+    {
+        return $this->image_tmp_name;
     }
 
     /*

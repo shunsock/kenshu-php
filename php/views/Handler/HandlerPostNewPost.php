@@ -10,6 +10,7 @@ use App\Core\UploadedImageChecker;
 use App\Html\CreateBadRequestHtml;
 use App\Html\CreateInternalServerErrorHtml;
 use App\Repository\RepositoryPostNewPost;
+use InvalidArgumentException;
 use PDOException;
 
 class HandlerPostNewPost
@@ -17,11 +18,10 @@ class HandlerPostNewPost
     public static function run(Request $req): Response
     {
         // check images
+        $image_names = [];
         try {
-            var_dump($_FILES);
             $user_image = new UploadedImageChecker();
-            $image_name = $req->getPostData()["username"]."_".$user_image->getImageName();
-        } catch (Exception $e) {
+        } catch (InvalidArgumentException $e) {
             $html = "画像のアップロードに失敗しました。".$e;
             return new Response(
                 status_code: "400"
@@ -39,8 +39,13 @@ class HandlerPostNewPost
         try {
             $title = $req->getPostData()["title"];
             $body = $req->getPostData()["body"];
-            RepositoryPostNewPost::commit($title, $body);
-            $html = "ok, redirect to top page";
+            RepositoryPostNewPost::commit($title, $body, $image_names);
+            $count = 0;
+            for ($i = 0; $i < count($user_image->getImageBase()); $i++) {
+                $tmp_image_location = $user_image->getImageTmpName()[$i];
+                $folder = "/var/www/html/public/Image/" . $_SESSION["user_name"] . "_" . $user_image->getImageName()[$i];
+                $count++;
+            }
             return new Response(
                 status_code: "301"
                 , body: $html
