@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Core;
 
-use Exception;
 use InvalidArgumentException;
 
 class UploadedImageChecker
 {
-    private string $image_name;
-    private string $image_type;
-    private string $image_base;
+    // TODO: Change Class Array to Something Other...
+    private array $image_name;
+    private array $image_type;
+    private array $image_base;
 
     public function __construct()
     {
         if (self::isUploadedImageValid()){
-            $this->image_name = $_FILES["user-image"]["name"];
-            $this->image_type = $_FILES["user-image"]["type"];
-            $this->image_base = $_FILES["user-image"]["tmp_name"];
+            $numOfUploadedImage = sizeof($_FILES["user-image"]["name"]);
+            for ($i = 0; $i < $numOfUploadedImage; $i++) {
+                $image_name[$i] = $_FILES["user-image"]["name"][$i];
+                $image_type[$i] =  $_FILES["user-image"]["type"][$i];
+                $image_base[$i] = $_FILES["user-image"]["tmp_name"][$i];
+            }
         } else {
             throw new InvalidArgumentException(message: "画像のアップロードに失敗しました。");
         }
@@ -26,37 +29,47 @@ class UploadedImageChecker
 
     private static function isUploadedImageValid(): bool
     {
-        if ($_FILES["user-image"]["error"] !== UPLOAD_ERR_OK) {
-            return false;
-        }
-        if (!is_uploaded_file($_FILES["user-image"]["tmp_name"])) {
-            return false;
-        }
-        if ($_FILES["user-image"]["type"] !== "image/png" && $_FILES["user-image"]["type"] !== "image/jpeg") {
-            return false;
-        }
-        $image_info = getimagesize($_FILES["user-image"]["tmp_name"]);
-        if ($image_info === false) {
-            return false;
-        }
-        $image_mime_type = $image_info["mime"];
-        if (!str_starts_with($image_mime_type, "image/")) {
-            return false;
+        $numOfUploadedImage = sizeof($_FILES["user-image"]["name"]);
+        for ($i = 0; $i < $numOfUploadedImage; $i++) {
+            if ($_FILES["user-image"]["error"][$i] !== UPLOAD_ERR_OK) {
+                return false;
+            }
+            echo 'no error';
+            if (!is_uploaded_file($_FILES["user-image"]["tmp_name"][$i])) {
+                return false;
+            }
+            echo 'tem_name ok';
+            if ($_FILES["user-image"]["type"][$i] !== "image/png" && $_FILES["user-image"]["type"][$i] !== "image/jpeg") {
+                return false;
+            }
+            echo 'type ok';
+            $image_info = getimagesize($_FILES["user-image"]["tmp_name"][$i]);
+            if ($image_info === false) {
+                return false;
+            }
         }
         return true;
     }
-
-    public function getImageName(): string
+    /*
+     *   object type of array is only string
+     */
+    public function getImageName(): array
     {
         return $this->image_name;
     }
 
-    public function getImageType(): string
+    /*
+     * object type of array is only string
+     */
+    public function getImageType(): array
     {
         return $this->image_type;
     }
 
-    public function getImageBase(): string
+    /*
+     * object type of array is only string
+     */
+    public function getImageBase(): array
     {
         return $this->image_base;
     }
