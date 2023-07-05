@@ -28,7 +28,7 @@ class HandlerRegister
         try {
             $user_image = new UploadedImageChecker();
             $image_name = $req->getPostData()["username"]."_".$user_image->getImageName();
-        } catch (Exception $e) {
+        } catch (InvalidArgumentException $e) {
             $html = "画像のアップロードに失敗しました。".$e;
             return new Response(
                 status_code: "400"
