@@ -14,6 +14,7 @@ class HandlerLogout implements HandlerInterface
     {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
+        unset($_SESSION['user_image']);
         return new Response(
             status_code: "301"
             , body: "ok, redirect to login page"

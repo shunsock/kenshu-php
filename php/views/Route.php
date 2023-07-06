@@ -27,7 +27,6 @@ class Route
     {
         // if user does not have authentication information, redirect to login page
         session_start();
-        self::routeLoginPageIfNotLoggedIn(req: $req);
         $res = self::routingByUriAndMethod($req);
 
         self::redirect(res: $res);

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Html;
 
-use App\Model\Post;
+use App\Model\PostWithImage;
 
 class CreatePostPageHtml extends HtmlTemplate implements HtmlInterface
 {
     private string $html;
     private bool $isAuthorOfPost;
 
-    public function __construct(Post $post)
+    public function __construct(PostWithImage $post)
     {
         // Server have session because of function on Router (isUserLoggedIn)
         if ($post->getUserName() === $_SESSION["user_name"]) {
@@ -34,14 +34,17 @@ class CreatePostPageHtml extends HtmlTemplate implements HtmlInterface
 
     }
 
-    public function getMain(Post $post): string
+    public function getMain(PostWithImage $post): string
     {
         $main = '<body>';
         $main .= '<div class="my-5 bg-slate-800 p-10 rounded-xl">';
+        $main .= '<img class="my-4 object-contain rounded-xl" src="Image/' . $post->getThumbnail() . '" alt="image">';
         $main .= '<h2 class="text-3xl text-monokaiGreen"><span class="text-monokaiRed">Title: </span>' . $post->getTitle() . '</h2>';
         $main .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">User_Name: </span>' . $post->getUserName() . '</p>';
         $main .= '<p class="text-monokaiYellow"><span class="text-monokaiOrange">Created_At: </span>' . substr(string: $post->getCreatedAt(), offset: 0, length: 10) . '</p>';
-        $main .= '<img class="my-4 object-contain rounded-xl" src=' . $post->getThumbnail() . ' alt="image">';
+        foreach ($post->getImagePaths() as $path) {
+            $main .= '<img class="rounded-lg my-5" src="/Image/' . $path["path"] . '" />';
+        }
         $main .= '<p class="text-md text-monokaiWhite">' . $post->getBody() . '</p>';
         $main .= '</div>';
 

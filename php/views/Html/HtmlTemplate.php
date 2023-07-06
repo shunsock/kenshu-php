@@ -43,6 +43,10 @@ class HtmlTemplate
         $header = '<header>';
         $header .= '<h1 class="text-5xl text-monokaiWhite">String Object is All You Need</h1>';
         $header .= '<p class="text-monokaiComments my-5 ml-1">Make Your Life Better with String Object.</p>';
+        if (isset($_SESSION["user_image"])){
+            $header .= '<div><img src="/Image/'.$_SESSION["user_image"].'">';
+            $header .= '<p class="text-monokaiWhite">'.$_SESSION["user_name"].'</p></div>';
+        }
         $header .= '</header>';
         return $header;
     }
@@ -69,10 +73,11 @@ class HtmlTemplate
 
     protected function getForm(): string
     {
-        $form = '<form action="/" method="POST" >';
+        $form = '<form action="/" method="POST" enctype="multipart/form-data">';
         $form .= '<h2 class="text-3xl text-monokaiWhite">Create New Post</h2>';
         $form .= '<input type="text" name="title"  placeholder="Enter Title" class="text-slate-800 h-20 w-full rounded-lg bg-monokaiWhite px-16 py-5 my-5">';
         $form .= '<textarea name="body" placeholder="Enter Body" class="text-slate-800 h-96 w-full rounded-lg bg-monokaiWhite px-16 py-5"></textarea>';
+        $form .= '<input class="w-full bg-monokaiWhite py-5 px-16 my-3 rounded-lg" id="user-image[]" name="user-image[]" type="file"  multiple />';
         $form .= '<button type="submit" value="Submit" class="text-xl rounded-lg p-3 w-36 bg-slate-500 hover:bg-monokaiBlue text-center my-5">Submit</button>';
         $form .= '</form>';
         return $form;

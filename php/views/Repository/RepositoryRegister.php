@@ -14,18 +14,19 @@ class RepositoryRegister
     public static function commit(
         string $user_name,
         string $email,
+        string $image_name,
         string $password_hashed
     ): void
     {
-        $user_names = self::getAllUserName();
-        if ($user_names->isExist($user_name)) {
+        $user_name_list = self::getAllUserName();
+        if ($user_name_list->isExist($user_name)) {
             throw new InvalidArgumentException(message: "user name already exists");
         }
-
         // code below have possible to throw PDOException
         self::InsertUserData(
             user_name: $user_name
             , email: $email
+            , image_name: $image_name
             , password_hashed: $password_hashed
         );
     }
@@ -35,9 +36,7 @@ class RepositoryRegister
         // code below have possible to throw PDOException
         $query = "SELECT name FROM users";
         $db = CreateConnectionPDO::CreateConnection();
-        $prepared = $db->prepare($query);
-        $prepared->execute();
-        $user_names = $prepared->fetchAll(mode: PDO::FETCH_COLUMN, args: 0);
+        $user_names = $db->query($query)->fetchAll(mode: PDO::FETCH_COLUMN, args: 0);
         // code below have possible to throw Invalid Argument Exception
         return new StringArrayChecker($user_names);
     }
@@ -45,12 +44,13 @@ class RepositoryRegister
     public static function InsertUserData(
         string   $user_name
         , string $email
+        , string  $image_name
         , string $password_hashed
     ): void
     {
-        $query = "INSERT INTO users (name, email, password) VALUES (?,?,?)";
+        $query = "INSERT INTO users (name, email, user_image_path, password) VALUES (?,?,?,?)";
         $db = CreateConnectionPDO::CreateConnection();
         $prepared = $db->prepare($query);
-        $prepared->execute([$user_name, $email, $password_hashed]);
+        $prepared->execute([$user_name, $email, $image_name,  $password_hashed]);
     }
 }

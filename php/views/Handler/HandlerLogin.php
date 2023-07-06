@@ -42,6 +42,7 @@ class HandlerLogin implements HandlerInterface
             // Login successful
             $_SESSION['user_id'] = $user->getId();
             $_SESSION['user_name'] = $user->getName();
+            $_SESSION['user_image'] = $user->getImagePath();
             return new Response(
                 status_code: "301"
                 , body: "ok, redirect to home page"

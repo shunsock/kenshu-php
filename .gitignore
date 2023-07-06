@@ -2,3 +2,4 @@ db/store/
 .idea/
 vendor/
 php/views/Core/.env
+php/public/Image

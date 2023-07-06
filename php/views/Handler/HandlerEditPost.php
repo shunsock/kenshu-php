@@ -26,7 +26,7 @@ class HandlerEditPost implements HandlerInterface
 
         // idが存在する場合は、idに紐づく記事を取得する
         try {
-            $posts = RepositoryGetPostById::getPostById(id: $id);
+            $posts = RepositoryGetPostById::getData(id: $id);
             $id = $posts->getId();
             $title = $posts->getTitle();
             $body = $posts->getBody();
